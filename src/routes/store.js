@@ -9,4 +9,4 @@ export const database = writable(undefined);
 export const map = writable(undefined);
 
 /** @type {import('svelte/store').Writable<string|undefined>}}*/
-export const focusId = writable("U101001");
+export const focusId = writable('U101001');

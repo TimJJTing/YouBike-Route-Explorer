@@ -4,6 +4,7 @@
 	import { database, map, focusId } from './store';
 	import Routes from './layers/Routes.svelte';
 	import Stations from './layers/Stations.svelte';
+	import DeckOverlay from './layers/DeckOverlay.svelte';
 	mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 	/** @type {import('mapbox-gl').LngLatLike}}*/
@@ -38,7 +39,7 @@
 		map.set(
 			new mapboxgl.Map({
 				container: 'container',
-				style: 'mapbox://styles/mapbox/light-v9',
+				style: 'mapbox://styles/mapbox/dark-v9',
 				center: center,
 				zoom: 11.5,
 				pitch: 0
@@ -46,16 +47,17 @@
 		);
 
 		$map?.on('load', () => {
-			mapReady = true;
+			mapReady = true;	
 		});
 	});
 </script>
 
 <svelte:head>
-	<link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet" />
+	<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet" />
 </svelte:head>
 <div id="container" bind:this={container}>
 	{#if mapReady}
+		<DeckOverlay />
 		{#await stationsPromise}
 			<h1>Loading stations...</h1>
 		{:then stations}

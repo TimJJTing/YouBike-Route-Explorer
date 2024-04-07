@@ -1,8 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { PathLayer } from '@deck.gl/layers';
-	import { map } from '../store';
-	import { MapboxLayer } from '@deck.gl/mapbox';
+	import { map, layers } from '../store';
 	import { pathProcessor } from '$lib/pathProcessor';
 
 	/**
@@ -11,12 +10,12 @@
 	export let data = undefined;
 
 	/**
-	 * @type {MapboxLayer} data
+	 * @type {PathLayer|undefined} data
 	 */
 	let layer = undefined;
 
 	function getLayerData(newData) {
-        if (newData) {
+		if (newData) {
 			return pathProcessor(newData, true, 0.9, 200, false, 600, 50);
 		}
 		return [];
@@ -24,14 +23,13 @@
 	$: pathFlow = getLayerData(data);
 
 	onMount(() => {
-		if (data && $map) {
+		if (data && $map && $layers) {
 			// @ts-ignore
 			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
 			const layerId = 'path';
 
-			layer = new MapboxLayer({
+			layer = new PathLayer({
 				id: layerId,
-				type: PathLayer,
 				data: pathFlow,
 				pickable: true,
 				widthUnits: 'pixels',
@@ -40,10 +38,13 @@
 				getPath: (d) => d.path,
 				getColor: (d) => [0, 255, 0]
 			});
-			$map.addLayer(layer, firstLabelLayerId);
 
+			// add layer
+			$layers = [...$layers, layer];
+
+			// remove layer on unmount
 			return () => {
-				$map?.removeLayer(layerId);
+				$layers = $layers?.filter(l=>l.id!==layerId);
 			};
 		}
 	});

@@ -22,7 +22,7 @@
 		const results = await $database?.query(queryString);
 		return results;
 	}
-	$: stationsQueryString = `SELECT DISTINCT on_stop, on_stop_id, on_stop_lat, on_stop_lon FROM parquet_scan('yb_route_weekday_tpc.parquet')`;
+	$: stationsQueryString = `SELECT DISTINCT on_stop AS name, on_stop_id, on_stop_lat, on_stop_lon FROM parquet_scan('yb_route_weekday_tpc.parquet')`;
 	$: stationsPromise = getStations(stationsQueryString);
 
 	/**
@@ -32,6 +32,7 @@
 		const results = await $database?.query(queryString);
 		return results;
 	}
+	// TODO: also show routes where off_stop_id=focusId
 	$: routesQueryString = `SELECT * FROM parquet_scan('yb_route_weekday_tpc.parquet') WHERE off_stop_id != on_stop_id AND on_stop_id='${$focusId}'`;
 	$: routesPromise = getRoutes(routesQueryString);
 

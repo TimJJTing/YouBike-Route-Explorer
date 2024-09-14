@@ -53,7 +53,7 @@
 </script>
 
 <svelte:head>
-	<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet" />
+	<link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
 </svelte:head>
 <div id="container" bind:this={container}>
 	{#if mapReady}

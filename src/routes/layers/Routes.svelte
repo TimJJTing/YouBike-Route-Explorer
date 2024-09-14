@@ -34,9 +34,10 @@
 				pickable: true,
 				widthUnits: 'pixels',
 				capRounded: true,
+				opacity: 0.5, 
 				getWidth: (d) => d.width,
 				getPath: (d) => d.path,
-				getColor: (d) => [0, 255, 0]
+				getColor: (d) => [93, 211, 0]
 			});
 
 			// add layer

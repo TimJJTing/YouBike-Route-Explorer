@@ -22,9 +22,10 @@
 				data,
 				pickable: true,
 				radiusUnits: 'pixels',
+				opacity: 0.5,
 				getPosition: (d) => [d.on_stop_lon, d.on_stop_lat],
 				getRadius: (d) => 4,
-				getFillColor: (d) => [255, 0, 0],
+				getFillColor: (d) => [1, 165, 239],
 				onClick: (info, event) => focusId.set(info.object.on_stop_id)
 			});
 			

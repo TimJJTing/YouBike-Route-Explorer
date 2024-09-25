@@ -33,9 +33,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@deck.gl/core": "^9.0.29",
-		"@deck.gl/layers": "^9.0.29",
-		"@deck.gl/mapbox": "^9.0.29",
+		"@deck.gl/core": "^9.0.30",
+		"@deck.gl/layers": "^9.0.30",
+		"@deck.gl/geo-layers": "^9.0.30",
+		"@deck.gl/mapbox": "^9.0.30",
 		"@duckdb/duckdb-wasm": "^1.28.1-dev106.0",
 		"@turf/bezier-spline": "^7.1.0",
 		"@turf/distance": "^7.1.0",

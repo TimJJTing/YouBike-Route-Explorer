@@ -5,6 +5,7 @@
 	import Routes from './layers/Routes.svelte';
 	import Stations from './layers/Stations.svelte';
 	import DeckOverlay from './layers/DeckOverlay.svelte';
+	import Grids from './layers/Grids.svelte';
 	mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 	/** @type {import('mapbox-gl').LngLatLike}}*/
@@ -18,23 +19,19 @@
 	/**
 	 * @param {string} queryString
 	 */
-	async function getStations(queryString) {
+	 async function getData(queryString) {
 		const results = await $database?.query(queryString);
 		return results;
 	}
-	$: stationsQueryString = `SELECT DISTINCT on_stop AS name, on_stop_id, on_stop_lat, on_stop_lon FROM parquet_scan('yb_route_weekday_tpc.parquet')`;
-	$: stationsPromise = getStations(stationsQueryString);
+	$: gridsQueryString = `SELECT h3_cell_lv9 as name, capacity FROM parquet_scan('yb_grids_tpc.parquet')`;
+	$: gridsPromise = getData(gridsQueryString);
 
-	/**
-	 * @param {string} queryString
-	 */
-	async function getRoutes(queryString) {
-		const results = await $database?.query(queryString);
-		return results;
-	}
+	$: stationsQueryString = `SELECT DISTINCT on_stop AS name, on_stop_id, on_stop_lat, on_stop_lon FROM parquet_scan('yb_route_weekday_tpc.parquet')`;
+	$: stationsPromise = getData(stationsQueryString);
+
 	// TODO: also show routes where off_stop_id=focusId
 	$: routesQueryString = `SELECT * FROM parquet_scan('yb_route_weekday_tpc.parquet') WHERE off_stop_id != on_stop_id AND on_stop_id='${$focusId}'`;
-	$: routesPromise = getRoutes(routesQueryString);
+	$: routesPromise = getData(routesQueryString);
 
 	onMount(async () => {
 		map.set(
@@ -59,6 +56,13 @@
 <div id="container" bind:this={container}>
 	{#if mapReady}
 		<DeckOverlay />
+
+		{#await gridsPromise}
+			<h1>Loading grids...</h1>
+		{:then grids}
+			<Grids data={grids} />
+		{/await}
+
 		{#await stationsPromise}
 			<h1>Loading stations...</h1>
 		{:then stations}

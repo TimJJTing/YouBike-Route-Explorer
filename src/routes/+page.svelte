@@ -5,22 +5,14 @@
 	import { database } from './store';
 	import Map from './Map.svelte';
 
-	/**
-	 * @type {Promise<import('@duckdb/duckdb-wasm').AsyncDuckDBConnection> | undefined}
-	 */
-	// let connection;
-
-	/**
-	 * @type {Promise<any> | null | undefined}
-	 */
-	// let result;
-
-	// const INITIAL_QUERY = `SELECT COUNT(*) FROM parquet_scan('yb_route_weekday_tpc.parquet')`;
+	/** @type {{name: string, url: string}[]} */
+	let connections = [
+		{ name: 'yb_route_weekday_tpc.parquet', url: `${base}/yb_route_weekday_tpc.parquet` },
+		{ name: 'yb_grids_tpc.parquet', url: `${base}/yb_grids_tpc.parquet` }
+	];
 
 	onMount(() => {
-		database.update(
-			() => new DuckDB('yb_route_weekday_tpc.parquet', `${base}/yb_route_weekday_tpc.parquet`)
-		);
+		database.update(() => new DuckDB(connections));
 		return () => {
 			if ($database) {
 				$database.disconnect();
@@ -35,13 +27,14 @@
 </svelte:head>
 
 <!-- <section> -->
-	{#if $database}
-		{#await $database.connect()}
-			Loading
-		{:then conn}
-			<Map/>
-		{/await}
-	{/if}
+{#if $database}
+	{#await $database.connect()}
+		Loading
+	{:then conn}
+		<Map />
+	{/await}
+{/if}
+
 <!-- </section> -->
 
 <style>

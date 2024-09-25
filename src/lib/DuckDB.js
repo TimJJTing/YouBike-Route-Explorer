@@ -4,26 +4,20 @@ import duckdb_worker from '/node_modules/@duckdb/duckdb-wasm/dist/duckdb-browser
 
 export class DuckDB {
 	/**
-	 * @param {string} name
-	 * @param {string} url
+	 * @param {{name: string, url: string}[]} connections
 	 * @param {duckdb.DuckDBDataProtocol} proto
 	 * @param {boolean} directIO
 	 */
-	constructor(name, url, proto = 4, directIO = false) {
+	constructor(connections, proto = 4, directIO = false) {
 		/**
 		 * @type {import('@duckdb/duckdb-wasm').AsyncDuckDB | null}
 		 */
 		this._db = null;
 
 		/**
-		 * @type {string}
+		 * @type {{name: string, url: string}[]}
 		 */
-		this._name = name;
-
-		/**
-		 * @type {string}
-		 */
-		this._url = url;
+		this._connections = connections;
 
 		/**
 		 * @type {duckdb.DuckDBDataProtocol}
@@ -41,12 +35,8 @@ export class DuckDB {
 		// this.result = null;
 	}
 
-	get name() {
-		return this._name;
-	}
-
-	get url() {
-		return this._url;
+	get connections() {
+		return this._connections;
 	}
 
 	/**
@@ -74,7 +64,9 @@ export class DuckDB {
 		try {
 			const db = await this._initDB();
 			if (db) {
-				await db.registerFileURL(this._name, this._url, this._proto, this._directIO);
+				this.connections.forEach(async (c) => {
+					await db.registerFileURL(c.name, c.url, this._proto, this._directIO);
+				})
 				this._conn = await db.connect();
 			}
 

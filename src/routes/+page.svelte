@@ -8,7 +8,8 @@
 	/** @type {{name: string, url: string}[]} */
 	let connections = [
 		{ name: 'yb_route_weekday_tpc.parquet', url: `${base}/yb_route_weekday_tpc.parquet` },
-		{ name: 'yb_grids_tpc.parquet', url: `${base}/yb_grids_tpc.parquet` }
+		{ name: 'yb_grids_tpc.parquet', url: `${base}/yb_grids_tpc.parquet` },
+		// { name: 'yb_route_weekday_tpc_h3.parquet', url: `${base}/yb_route_weekday_tpc_h3.parquet` },
 	];
 
 	onMount(() => {

@@ -16,3 +16,6 @@ export const layers = writable([])
 
 /** @type {import('svelte/store').Writable<string|undefined>}}*/
 export const focusId = writable('U101001');
+
+/** @type {import('svelte/store').Writable<string|undefined>}}*/
+export const hoverId = writable(undefined);

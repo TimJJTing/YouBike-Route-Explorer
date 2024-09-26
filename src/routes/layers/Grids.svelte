@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { H3HexagonLayer } from '@deck.gl/geo-layers';
-	import { map, focusId, layers } from '../store';
+	import { map, focusId, hoverId, layers } from '../store';
 	/**
 	 * @type {[]|undefined} data
 	 */
@@ -11,7 +11,6 @@
 	 * @type {H3HexagonLayer|undefined} data
 	 */
 	let layer = undefined;
-
 	onMount(() => {
 		if (data && $map && $layers) {
 			// @ts-ignore
@@ -20,14 +19,17 @@
 			layer = new H3HexagonLayer({
 				id: layerId,
 				data,
-                extruded: false,
+				extruded: false,
 				pickable: true,
 				opacity: 0.2,
-				getHexagon: d => d.name,
-				getFillColor: (d) => [93, 211, 0, d.capacity * 255 / 150],
-				// onClick: (info, event) => focusId.set(info.capacity)
+				getHexagon: (d) => d.name,
+				getFillColor: (d) => [93, 211, 0, (d.capacity * 255) / 150],
+				getLineColor: (d) => [255, 255, 255, 125],
+				getLineWidth: (d) => 1,
+				onClick: (info, event) => focusId.set(info.object.name),
+				onHover: (info, event) => hoverId.set(info?.object?.name),
 			});
-			
+
 			// add layer
 			$layers = [...$layers, layer];
 

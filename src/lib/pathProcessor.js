@@ -60,7 +60,8 @@ export const pathProcessor = (
     return processedData;
   }
 
-  let bundle = new Bundler();
+  // TODO: make this adjustable to user
+  let bundle = new Bundler({angleStrength: 0.8}); // avoid large turning angles
   bundle.setNodes(processedData);
   bundle.buildNearestNeighborGraph();
   bundle.MINGLE();

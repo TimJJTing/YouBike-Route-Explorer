@@ -44,7 +44,10 @@ You can preview the production build with `npm run preview`.
 - [x] add h3 cells
 - [x] add interactivity
 - [ ] improve reactivity
-- [ ] add insight panels / charts
+- [ ] add UI panels
+- [ ] add insight charts
+- [ ] add supplementary datasets
+- [ ] deploy demo site
 
 ## Credits
 

@@ -35,7 +35,7 @@
 				widthUnits: 'pixels',
 				capRounded: true,
 				opacity: 0.5, 
-				getWidth: (d) => d.width,
+				getWidth: (d) => Math.max(d.width, 1),
 				getPath: (d) => d.path,
 				getColor: (d) => [93, 211, 0]
 			});

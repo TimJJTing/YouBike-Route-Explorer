@@ -7,9 +7,10 @@
 	$: if ($layers && $deckOverlay) {
 		$deckOverlay.setProps({
 			layers: $layers,
-			getTooltip: ({ object }) => object && object.name
-		})
-	};
+			getTooltip: ({ object }) =>
+				object && `${object.name}: ${object.sum_of_txn_times ?? object.capacity}`
+		});
+	}
 
 	onMount(() => {
 		if ($map) {

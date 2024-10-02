@@ -23,10 +23,10 @@
 				pickable: true,
 				radiusUnits: 'pixels',
 				opacity: 0.5,
-				getPosition: (d) => [d.on_stop_lon, d.on_stop_lat],
-				getRadius: (d) => 4,
+				getPosition: (d) => [d.longitude, d.latitude],
+				getRadius: (d) => Math.max( d.capacity / 8, 4),
 				getFillColor: (d) => [1, 165, 239],
-				onClick: (info, event) => focusId.set(info.object.on_stop_id)
+				onClick: (info, event) => focusId.set(info.object.stop_id)
 			});
 			
 			// add layer

@@ -26,19 +26,16 @@
 	$: gridsQueryString = `SELECT h3_cell_lv9 as name, capacity FROM parquet_scan('yb_grids_tpc.parquet')`;
 	$: gridsPromise = getData(gridsQueryString);
 
-	$: stationsQueryString = `SELECT DISTINCT on_stop AS name, on_stop_id, on_stop_lat, on_stop_lon FROM parquet_scan('yb_route_weekday_tpc.parquet')`;
+	$: stationsQueryString = `SELECT stop_id, stop_name AS name, latitude, longitude, capacity FROM parquet_scan('yb_stations_tpc.parquet')`;
 	$: stationsPromise = getData(stationsQueryString);
 
 	/**
 	 * @param {string|undefined} focusId
 	 */
 	function getRouteQueryString(focusId) {
-		if (focusId?.startsWith('U'))
-			return `SELECT * FROM parquet_scan('yb_route_weekday_tpc.parquet') WHERE off_stop_id != on_stop_id AND on_stop_id='${focusId}'`;
-		else
-			return `SELECT * FROM parquet_scan('yb_route_weekday_tpc.parquet') WHERE off_stop_id != on_stop_id AND on_stop_h3_cell_lv9='${focusId}'`;
+		return `SELECT * FROM parquet_scan('yb_route_weekday_tpc.parquet') WHERE off_id != on_id AND on_id='${focusId}'`;
 	}
-	// TODO: also show routes where off_stop_id=focusId
+	// TODO: also show routes where off_id=focusId
 	$: routesQueryString = getRouteQueryString($focusId);
 	$: routesPromise = getData(routesQueryString);
 

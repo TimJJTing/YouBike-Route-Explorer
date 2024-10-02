@@ -11,18 +11,18 @@ const processData = (paths, tsMax) => {
   paths.forEach((p, i) => {
     _paths.push({
       id: i,
-      name: `${p.on_stop}-${p.off_stop}`,
+      name: `${p.on_name}-${p.off_name}`,
       data: {
         coords: [
-          p.on_stop_lon,
-          p.on_stop_lat,
-          p.off_stop_lon,
-          p.off_stop_lat,
+          p.on_lon,
+          p.on_lat,
+          p.off_lon,
+          p.off_lat,
         ],
       },
       path: [
-        [p.on_stop_lon, p.on_stop_lat],
-        [p.off_stop_lon, p.off_stop_lat],
+        [p.on_lon, p.on_lat],
+        [p.off_lon, p.off_lat],
       ],
       timestamps: [0, tsMax],
       ...p,

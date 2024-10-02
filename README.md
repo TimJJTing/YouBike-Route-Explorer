@@ -33,6 +33,19 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
+## To-do List
+
+- [x] prepare dataset and parquet files
+- [x] setup project structure
+- [x] import dataset
+- [x] add map
+- [x] add stations
+- [x] add routes
+- [x] add h3 cells
+- [x] add interactivity
+- [ ] improve reactivity
+- [ ] add insight panels / charts
+
 ## Credits
 
 - [Multilevel Agglomerative Edge Bundling in JavaScript](https://github.com/philogb/mingle)

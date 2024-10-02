@@ -1,22 +1,18 @@
-# create-svelte
+# YouBike Explorer
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+YouBike, Taiwan's leading public bicycle system, offers 24/7 point-to-point rental and return services, transforming the way residents and visitors navigate urban spaces. With the introduction of YouBike 2.0, featuring a new design for both bikes and stations, the system no longer relies on external electricity, making it more flexible and easier to deploy across the city. This project delves into the deployment strategy of YouBike 2.0 in Taipei City, empowers you to explore usage patterns, popular routes, and how these trends reflect the evolving needs of urban commuters. By analyzing the data with this exploratory data visualization tool, we can uncover insights that could drive more efficient, accessible, and sustainable transportation solutions.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+1. Under the project root, make sure you're running node 20 or run `nvm use` if you have nvm installed.
+2. This project utilizes Mapbox's service and needs a token in `.env` to work:
+
+```bash
+echo VITE_MAPBOX_TOKEN={your_mapbox_token} > .env
+```
+
+3. install dependencies with `npm install` (or `pnpm install` or `yarn`)
+4. start a development server:
 
 ```bash
 npm run dev
@@ -36,3 +32,14 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Credits
+
+- [Multilevel Agglomerative Edge Bundling in JavaScript](https://github.com/philogb/mingle)
+- [k-d Tree JavaScript Library](https://github.com/ubilabs/kd-tree-javascript)
+
+### Data sources
+
+- [臺北市YouBike見車率統計](https://data.taipei/dataset/detail?id=ba0dafae-043c-4730-b97e-2defd7af766c)
+- [臺北市YouBike起訖站點統計](https://data.taipei/dataset/detail?id=c7dbdb7c-6bbd-495a-bd23-49b22defd83e)
+- [臺北市YouBike區域互補站點](https://data.taipei/dataset/detail?id=fe8a0ddd-6f70-4e63-92a1-a3463c790a1b)

@@ -45,7 +45,7 @@ You can preview the production build with `npm run preview`.
 - [x] add routes
 - [x] add h3 cells
 - [x] add interactivity
-- [ ] improve reactivity
+- [x] improve reactivity
 - [ ] add UI panels
 - [ ] add insight charts
 - [ ] add supplementary datasets

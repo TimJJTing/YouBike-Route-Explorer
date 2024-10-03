@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { PathLayer } from '@deck.gl/layers';
-	import { map, layers, hoverId, deckOverlay } from '../store';
+	import { map, layers, hoverId, deckOverlay, layerVisibility } from '../store';
 	import { pathProcessor } from '$lib/pathProcessor';
 
 	/**
@@ -31,10 +31,11 @@
 	$: pathFlow = getLayerData(data);
 
 	/**
+	 * @param {boolean} visible
 	 * @param {string | undefined} hId
 	 * @param {Object[] | undefined} pathFlow
 	 */
-	function render(hId, pathFlow) {
+	function render(visible, hId, pathFlow) {
 		if (data && $map && $layers && $deckOverlay) {
 			// @ts-ignore
 			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
@@ -46,13 +47,15 @@
 				widthUnits: 'pixels',
 				capRounded: true,
 				opacity: 1,
+				visible,
 				getWidth: (d) => Math.max(d.width, d.name === hId ? 3 : 1.5),
 				getPath: (d) => d.path,
 				getColor: (d) => (d.name === hId ? [1, 165, 239, 255] : [1, 165, 239, 60]),
 				onHover: (info, event) => hoverId.set(info?.object?.name),
 				updateTriggers: {
 					getColor: hId,
-					getWidth: hId
+					getWidth: hId,
+					visible: visible
 				}
 			});
 
@@ -73,5 +76,5 @@
 			$layers = $layers?.filter((l) => l.id !== layerId);
 		};
 	});
-	$: render($hoverId, pathFlow);
+	$: render($layerVisibility.routes, $hoverId, pathFlow);
 </script>

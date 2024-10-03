@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { ScatterplotLayer } from '@deck.gl/layers';
-	import { map, focusId, hoverId, layers, deckOverlay } from '../store';
+	import { map, focusId, hoverId, layers, deckOverlay, layerVisibility } from '../store';
 	/**
 	 * @type {[]|undefined} data
 	 */
@@ -18,9 +18,10 @@
 	let layer = undefined;
 
 	/**
+	 * @param {boolean} visible
 	 * @param {string | undefined} hId
 	 */
-	function render(hId) {
+	function render(visible, hId) {
 		if (data && $map && $layers && $deckOverlay) {
 			// @ts-ignore
 			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
@@ -30,6 +31,7 @@
 				pickable: true,
 				radiusUnits: 'pixels',
 				opacity: 1,
+				visible,
 				getPosition: (d) => [d.longitude, d.latitude],
 				getRadius: (d) => Math.max(d.capacity / 8, hId === d.stop_id ? 8 : 4),
 				getFillColor: (d) => (hId === d.stop_id ? [93, 211, 0, 255] : [93, 211, 0, 80]),
@@ -37,7 +39,8 @@
 				onHover: (info, event) => hoverId.set(info?.object?.stop_id),
 				updateTriggers: {
 					getFillColor: hId,
-					getRadius: hId
+					getRadius: hId,
+					visible: visible
 				}
 			});
 			let layerIdx = $layers.findIndex((l) => l.id === layerId);
@@ -57,5 +60,5 @@
 			$layers = $layers?.filter((l) => l.id !== layerId);
 		};
 	});
-	$: render($hoverId);
+	$: render($layerVisibility.stations, $hoverId);
 </script>

@@ -12,10 +12,17 @@ export const map = writable(undefined);
 export const deckOverlay = writable(undefined);
 
 /** @type {import('svelte/store').Writable<import('@deck.gl/core').Layer[]|undefined>}}*/
-export const layers = writable([])
+export const layers = writable([]);
 
 /** @type {import('svelte/store').Writable<string|undefined>}}*/
 export const focusId = writable('U101001');
 
 /** @type {import('svelte/store').Writable<string|undefined>}}*/
 export const hoverId = writable(undefined);
+
+/** @type {import('svelte/store').Writable<{grids: boolean, stations: boolean, routes: boolean}>}}*/
+export const layerVisibility = writable({
+	grids: true,
+	stations: true,
+	routes: true
+});

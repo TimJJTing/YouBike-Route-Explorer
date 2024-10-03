@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { H3HexagonLayer } from '@deck.gl/geo-layers';
-	import { map, focusId, hoverId, layers, deckOverlay } from '../store';
+	import { map, focusId, hoverId, layers, deckOverlay, layerVisibility } from '../store';
 	/**
 	 * @type {[]|undefined} data
 	 */
@@ -18,9 +18,10 @@
 	let layer = undefined;
 
 	/**
+	 * @param {boolean} visible
 	 * @param {string | undefined} hId
 	 */
-	function render(hId) {
+	function render(visible, hId) {
 		if (data && $map && $layers && $deckOverlay) {
 			// @ts-ignore
 			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
@@ -30,6 +31,7 @@
 				extruded: false,
 				pickable: true,
 				opacity: 0.8,
+				visible,
 				getHexagon: (d) => d.name,
 				getFillColor: (d) => [57, 133, 107, (d.capacity * 255) / 200],
 				getLineColor: (d) => (hId === d.name ? [255, 255, 255, 185] : [255, 255, 255, 0]),
@@ -38,7 +40,8 @@
 				onHover: (info, event) => hoverId.set(info?.object?.name),
 				updateTriggers: {
 					getLineWidth: hId,
-					getLineColor: hId
+					getLineColor: hId,
+					visible: visible
 				}
 			});
 			let layerIdx = $layers.findIndex((l) => l.id === layerId);
@@ -58,5 +61,5 @@
 			$layers = $layers?.filter((l) => l.id !== layerId);
 		};
 	});
-	$: render($hoverId);
+	$: render($layerVisibility.grids, $hoverId);
 </script>

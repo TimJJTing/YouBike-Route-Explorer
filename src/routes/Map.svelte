@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { database, map, focusId } from './store';
+	import { database, map, focusId, deckOverlay } from './store';
 	import Routes from './layers/Routes.svelte';
 	import Stations from './layers/Stations.svelte';
 	import DeckOverlay from './layers/DeckOverlay.svelte';
@@ -63,23 +63,25 @@
 	{#if mapReady}
 		<DeckOverlay />
 
-		{#await gridsPromise}
-			<h1>Loading grids...</h1>
-		{:then grids}
-			<Grids data={grids} />
-		{/await}
+		{#if $deckOverlay}
+			{#await gridsPromise}
+				<h1>Loading grids...</h1>
+			{:then grids}
+				<Grids data={grids} layerId="h3" />
+			{/await}
 
-		{#await stationsPromise}
-			<h1>Loading stations...</h1>
-		{:then stations}
-			<Stations data={stations} />
-		{/await}
+			{#await stationsPromise}
+				<h1>Loading stations...</h1>
+			{:then stations}
+				<Stations data={stations} layerId="stations" />
+			{/await}
 
-		{#await routesPromise}
-			<h1>Loading routes...</h1>
-		{:then routes}
-			<Routes data={routes} />
-		{/await}
+			{#await routesPromise}
+				<h1>Loading routes...</h1>
+			{:then routes}
+				<Routes data={routes} layerId="routes"/>
+			{/await}
+		{/if}
 	{/if}
 </div>
 

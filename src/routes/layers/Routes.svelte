@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { PathLayer } from '@deck.gl/layers';
-	import { map, layers } from '../store';
+	import { map, layers, hoverId, deckOverlay } from '../store';
 	import { pathProcessor } from '$lib/pathProcessor';
 
 	/**
@@ -10,10 +10,18 @@
 	export let data = undefined;
 
 	/**
+	 * @type {string} layer ID
+	 */
+	export let layerId = 'routes';
+
+	/**
 	 * @type {PathLayer|undefined} data
 	 */
 	let layer = undefined;
 
+	/**
+	 * @param {Object[] | undefined} newData
+	 */
 	function getLayerData(newData) {
 		if (newData) {
 			return pathProcessor(newData, true, 0.9, 200, false, 600, 50);
@@ -22,11 +30,14 @@
 	}
 	$: pathFlow = getLayerData(data);
 
-	onMount(() => {
-		if (data && $map && $layers) {
+	/**
+	 * @param {string | undefined} hId
+	 * @param {Object[] | undefined} pathFlow
+	 */
+	function render(hId, pathFlow) {
+		if (data && $map && $layers && $deckOverlay) {
 			// @ts-ignore
 			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
-			const layerId = 'path';
 
 			layer = new PathLayer({
 				id: layerId,
@@ -34,19 +45,33 @@
 				pickable: true,
 				widthUnits: 'pixels',
 				capRounded: true,
-				opacity: 0.5, 
-				getWidth: (d) => Math.max(d.width, 1),
+				opacity: 0.5,
+				getWidth: (d) => Math.max(d.width, d.name === hId ? 3 : 1),
 				getPath: (d) => d.path,
-				getColor: (d) => [93, 211, 0]
+				getColor: (d) => (d.name === hId ? [93, 211, 0, 255] : [93, 211, 0, 125]),
+				onHover: (info, event) => hoverId.set(info?.object?.name),
+				updateTriggers: {
+					getColor: hId,
+					getWidth: hId
+				}
 			});
 
-			// add layer
-			$layers = [...$layers, layer];
-
-			// remove layer on unmount
-			return () => {
-				$layers = $layers?.filter(l=>l.id!==layerId);
-			};
+			let layerIdx = $layers.findIndex((l) => l.id === layerId);
+			// update layers
+			if (layerIdx > -1) {
+				$layers = [...$layers];
+				$layers[layerIdx] = layer;
+				$deckOverlay.setProps({ layers: $layers });
+			} else {
+				$layers = [...$layers, layer];
+			}
 		}
+	}
+
+	onMount(() => {
+		return () => {
+			$layers = $layers?.filter((l) => l.id !== layerId);
+		};
 	});
+	$: render($hoverId, pathFlow);
 </script>

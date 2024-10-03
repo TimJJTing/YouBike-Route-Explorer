@@ -32,7 +32,7 @@
 				opacity: 1,
 				getPosition: (d) => [d.longitude, d.latitude],
 				getRadius: (d) => Math.max(d.capacity / 8, hId === d.stop_id ? 8 : 4),
-				getFillColor: (d) => (hId === d.stop_id ? [1, 165, 239, 255] : [1, 165, 239, 180]),
+				getFillColor: (d) => (hId === d.stop_id ? [93, 211, 0, 255] : [93, 211, 0, 80]),
 				onClick: (info, event) => focusId.set(info.object.stop_id),
 				onHover: (info, event) => hoverId.set(info?.object?.stop_id),
 				updateTriggers: {

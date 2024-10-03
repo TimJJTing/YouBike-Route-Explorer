@@ -48,9 +48,10 @@
 				capRounded: true,
 				opacity: 1,
 				visible,
-				getWidth: (d) => Math.max(d.width, d.name === hId ? 3 : 1.5),
+				getWidth: (d) => Math.min(15, Math.max(d.width * 2, d.name === hId ? 5 : 2)),
 				getPath: (d) => d.path,
-				getColor: (d) => (d.name === hId ? [1, 165, 239, 255] : [1, 165, 239, 60]),
+				getColor: (d) =>
+					d.name === hId ? [1, 165, 239, 255] : [1, 165, 239, Math.max(40, d.width * 7)],
 				onHover: (info, event) => hoverId.set(info?.object?.name),
 				updateTriggers: {
 					getColor: hId,

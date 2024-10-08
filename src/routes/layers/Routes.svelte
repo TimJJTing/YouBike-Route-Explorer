@@ -15,6 +15,21 @@
 	export let layerId = 'routes';
 
 	/**
+	 * @type {[number, number, number][]}
+	 */
+	const routeColors = [
+		[1, 199, 239],
+		[1, 151, 239],
+		[1, 108, 239],
+		[1, 36, 239],
+		[1, 32, 239]
+	];
+
+	// return route level [0,...,4]
+	const getRouteLevel = (d) =>
+		Math.min(4, Math.max(0, Math.floor(Math.log2(d.sum_of_txn_times)) - 3));
+
+	/**
 	 * @type {PathLayer|undefined} data
 	 */
 	let layer = undefined;
@@ -48,10 +63,12 @@
 				capRounded: true,
 				opacity: 1,
 				visible,
-				getWidth: (d) => Math.min(15, Math.max(d.width * 2, d.name === hId ? 5 : 2)),
 				getPath: (d) => d.path,
-				getColor: (d) =>
-					d.name === hId ? [1, 165, 239, 255] : [1, 165, 239, Math.max(40, d.width * 7)],
+				getWidth: (d) => (getRouteLevel(d) + 1) * 1.5 + (d.name === hId ? 1 : 0),
+				getColor: (d) => [
+					...routeColors[getRouteLevel(d)],
+					d.name === hId ? 255 : (getRouteLevel(d) + 1) * 30
+				],
 				onHover: (info, event) => hoverId.set(info?.object?.name),
 				updateTriggers: {
 					getColor: hId,

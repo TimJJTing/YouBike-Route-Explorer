@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { PathLayer } from '@deck.gl/layers';
 	import { TripsLayer } from '@deck.gl/geo-layers';
-	import { map, layers, hoverId, deckOverlay, layerVisibility } from '../store';
+	import { map, layers, hoverId, deckOverlay, layerOption } from '../store';
 	import { pathProcessor } from '$lib/pathProcessor';
 
 	/**
@@ -26,7 +26,10 @@
 		[1, 32, 239]
 	];
 
-	// return route level [0,...,4]
+	/**
+	 * return route level [0,...,4]
+	 * @param {{sum_of_txn_times: number, [key: string]: any}} d
+	 */
 	const getRouteLevel = (d) =>
 		Math.min(4, Math.max(0, Math.floor(Math.log2(d.sum_of_txn_times)) - 3));
 
@@ -168,6 +171,6 @@
 			clearInterval(interval);
 		};
 	});
-	$: renderPathLayer($layerVisibility.routes, $hoverId, pathFlow);
-	$: renderTripsLayer($layerVisibility.routes, pathFlow, timestamp);
+	$: renderPathLayer($layerOption.routes.visible, $hoverId, pathFlow);
+	$: renderTripsLayer($layerOption.routes.visible, pathFlow, timestamp);
 </script>

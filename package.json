@@ -14,7 +14,6 @@
 		"test:unit": "vitest"
 	},
 	"devDependencies": {
-		"@fontsource/fira-mono": "^5.1.0",
 		"@playwright/test": "^1.47.1",
 		"@sveltejs/adapter-auto": "^3.2.4",
 		"@sveltejs/kit": "^2.5.27",
@@ -48,8 +47,12 @@
 		"@turf/length": "^7.1.0",
 		"bits-ui": "^0.21.16",
 		"clsx": "^2.1.1",
+		"formsnap": "^1.0.1",
+		"lucide-svelte": "^0.451.0",
 		"mapbox-gl": "^3.6.0",
+		"sveltekit-superforms": "^2.19.1",
 		"tailwind-merge": "^2.5.2",
-		"tailwind-variants": "^0.2.1"
+		"tailwind-variants": "^0.2.1",
+		"zod": "^3.23.8"
 	}
 }

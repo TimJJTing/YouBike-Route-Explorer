@@ -20,9 +20,14 @@ export const focusId = writable('U101001');
 /** @type {import('svelte/store').Writable<string|undefined>}}*/
 export const hoverId = writable(undefined);
 
-/** @type {import('svelte/store').Writable<{grids: boolean, stations: boolean, routes: boolean}>}}*/
-export const layerVisibility = writable({
-	grids: true,
-	stations: true,
-	routes: true
+/**
+ * @typedef {{visible: boolean}} GridsOption
+ * @typedef {{visible: boolean}} StationsOption
+ * @typedef {{visible: boolean, routeType: 'all'|'inbound'|'outbound'}} RoutesOption
+ * @type {import('svelte/store').Writable<{grids: GridsOption, stations: StationsOption, routes: RoutesOption}>}
+ * */
+export const layerOption = writable({
+	grids: { visible: true },
+	stations: { visible: true },
+	routes: { visible: true, routeType: 'all' }
 });

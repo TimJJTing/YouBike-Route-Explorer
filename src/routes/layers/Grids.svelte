@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { H3HexagonLayer } from '@deck.gl/geo-layers';
-	import { map, focusId, hoverId, layers, deckOverlay, layerVisibility } from '../store';
+	import { map, focusId, hoverId, layers, deckOverlay, layerOption } from '../store';
 	/**
 	 * @type {[]|undefined} data
 	 */
@@ -61,5 +61,5 @@
 			$layers = $layers?.filter((l) => l.id !== layerId);
 		};
 	});
-	$: render($layerVisibility.grids, $hoverId);
+	$: render($layerOption.grids.visible, $hoverId);
 </script>

@@ -9,12 +9,19 @@ YouBike, Taiwan's leading public bicycle system, offers 24/7 point-to-point rent
 1. Under the project root, make sure you're running node 20 or run `nvm use` if you have nvm installed.
 2. This project utilizes Mapbox's service and needs a token in `.env` to work:
 
-```bash
-echo VITE_MAPBOX_TOKEN={your_mapbox_token} > .env
-```
+    ```bash
+    echo VITE_MAPBOX_TOKEN={your_mapbox_token} > .env
+    ```
 
-3. install dependencies with `npm install` (or `pnpm install` or `yarn`)
-4. start a development server:
+3. Optionally, if you want to use another map style:
+
+    ```bash
+    # default: mapbox://styles/mapbox/dark-v9
+    echo VITE_MAPBOX_MAPSTYLE={style_url} >> .env
+    ```
+
+4. Install dependencies with `npm install` (or `pnpm install` or `yarn`)
+5. Start a development server:
 
 ```bash
 npm run dev

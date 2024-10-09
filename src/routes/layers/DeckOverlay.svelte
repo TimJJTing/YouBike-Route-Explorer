@@ -23,8 +23,10 @@
 			$map.addControl($deckOverlay);
 		}
 		return () => {
-			$deckOverlay?.finalize();
-			$map?.removeControl($deckOverlay);
+			if ($deckOverlay) {
+				$deckOverlay.finalize();
+				$map?.removeControl($deckOverlay);
+			}
 		};
 	});
 </script>

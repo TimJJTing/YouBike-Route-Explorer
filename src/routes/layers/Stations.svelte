@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { ScatterplotLayer } from '@deck.gl/layers';
-	import { map, focusId, hoverId, layers, deckOverlay, layerVisibility } from '../store';
+	import { map, focusId, hoverId, layers, deckOverlay, layerOption } from '../store';
 	/**
 	 * @type {[]|undefined} data
 	 */
@@ -60,5 +60,5 @@
 			$layers = $layers?.filter((l) => l.id !== layerId);
 		};
 	});
-	$: render($layerVisibility.stations, $hoverId);
+	$: render($layerOption.stations.visible, $hoverId);
 </script>

@@ -2,6 +2,12 @@
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import { database, map, focusId, deckOverlay, layerOption } from './store';
+	import {
+		getGridsQueryString,
+		getStationsQueryString,
+		getRouteQueryString,
+		getData
+	} from './query';
 	import Routes from './layers/Routes.svelte';
 	import Stations from './layers/Stations.svelte';
 	import DeckOverlay from './layers/DeckOverlay.svelte';
@@ -17,35 +23,12 @@
 	/** @type {boolean} */
 	let mapReady = false;
 
-	/**
-	 * @param {string} queryString
-	 */
-	async function getData(queryString) {
-		const results = await $database?.query(queryString);
-		return results;
-	}
-	$: gridsQueryString = `SELECT h3_cell_lv9 as name, capacity FROM parquet_scan('yb_grids_tpc.parquet')`;
-	$: gridsPromise = getData(gridsQueryString);
-
-	$: stationsQueryString = `SELECT stop_id, stop_name AS name, latitude, longitude, capacity FROM parquet_scan('yb_stations_tpc.parquet')`;
-	$: stationsPromise = getData(stationsQueryString);
-	/**
-	 * @param {string|undefined} focusId
-	 * @param {'all'|'inbound'|'outbound'} routeType
-	 */
-	function getRouteQueryString(focusId, routeType) {
-		let routeTypeClause = '';
-		if (routeType === 'inbound') routeTypeClause = `AND off_id='${focusId}'`;
-		else if (routeType === 'outbound') routeTypeClause = `AND on_id='${focusId}'`;
-		else if (routeType === 'all')
-			routeTypeClause = `AND ( on_id='${focusId}' OR off_id='${focusId}' )`;
-		let queryString = 
-		`SELECT * FROM parquet_scan('yb_route_weekday_tpc.parquet') WHERE off_id != on_id ${routeTypeClause};`;
-		return queryString;
-	}
-	// TODO: also show routes where off_id=focusId
+	$: gridsQueryString = getGridsQueryString();
+	$: gridsPromise = getData($database, gridsQueryString);
+	$: stationsQueryString = getStationsQueryString();
+	$: stationsPromise = getData($database, stationsQueryString);
 	$: routesQueryString = getRouteQueryString($focusId, $layerOption.routes.routeType);
-	$: routesPromise = getData(routesQueryString);
+	$: routesPromise = getData($database, routesQueryString);
 
 	onMount(async () => {
 		map.set(

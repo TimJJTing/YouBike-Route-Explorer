@@ -69,20 +69,7 @@ export class DuckDB {
 				})
 				this._conn = await db.connect();
 			}
-
-			// console.log("PREPARING INSERT")
-			// await conn.query(`CREATE TABLE p1 AS SELECT * FROM parquet_scan('SOTU.parquet')`);
-			// await conn.query(`CREATE VIEW wordcounts_raw AS SELECT * FROM (SELECT "@id" id,
-			//     UNNEST("nc:unigrams").word0 as word,
-			//     UNNEST("nc:unigrams").count as count FROM
-			//     p1) t1
-			// `);
-			// await conn.query(`
-			//   CREATE TABLE wordcounts AS SELECT * FROM
-			//   wordcounts_raw
-			//   NATURAL JOIN (SELECT word, SUM(count) as tot, COUNT(*) AS df FROM wordcounts_raw GROUP BY word) t2
-			// `);
-			// return this.connection;
+			return this._conn;
 		} catch (error) {
 			console.log('Cannot establish DB connection', error);
 		}

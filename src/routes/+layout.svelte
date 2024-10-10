@@ -1,10 +1,20 @@
 <script>
 	import '../app.css';
+	import { base } from '$app/paths';
+	import DuckDBProvider from './DuckDBProvider.svelte';
+	/** @type {{name: string, url: string}[]} */
+	let connections = [
+		{ name: 'yb_route_weekday_tpc.parquet', url: `${base}/yb_route_weekday_tpc.parquet` },
+		{ name: 'yb_stations_tpc.parquet', url: `${base}/yb_stations_tpc.parquet` },
+		{ name: 'yb_grids_tpc.parquet', url: `${base}/yb_grids_tpc.parquet` }
+	];
 </script>
 
 <div class="app">
 	<main>
-		<slot></slot>
+		<DuckDBProvider {connections}>
+			<slot></slot>
+		</DuckDBProvider>
 	</main>
 </div>
 
@@ -19,22 +29,4 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
-	/* 
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	} */
 </style>

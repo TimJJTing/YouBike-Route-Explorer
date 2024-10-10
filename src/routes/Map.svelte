@@ -1,17 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { database, map, focusId, deckOverlay, layerOption } from './store';
-	import {
-		getGridsQueryString,
-		getStationsQueryString,
-		getRouteQueryString,
-		getData
-	} from './query';
-	import Routes from './layers/Routes.svelte';
-	import Stations from './layers/Stations.svelte';
+	import { map, deckOverlay } from './store';
 	import DeckOverlay from './layers/DeckOverlay.svelte';
-	import Grids from './layers/Grids.svelte';
 	mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 	const mapStyle = import.meta.env.VITE_MAPBOX_MAPSTYLE || 'mapbox://styles/mapbox/dark-v9';
 
@@ -22,13 +13,6 @@
 
 	/** @type {boolean} */
 	let mapReady = false;
-
-	$: gridsQueryString = getGridsQueryString();
-	$: gridsPromise = getData($database, gridsQueryString);
-	$: stationsQueryString = getStationsQueryString();
-	$: stationsPromise = getData($database, stationsQueryString);
-	$: routesQueryString = getRouteQueryString($focusId, $layerOption.routes.routeType);
-	$: routesPromise = getData($database, routesQueryString);
 
 	onMount(async () => {
 		map.set(
@@ -53,25 +37,8 @@
 <div id="container" bind:this={container}>
 	{#if mapReady}
 		<DeckOverlay />
-
 		{#if $deckOverlay}
-			{#await gridsPromise}
-				<h1>Loading grids...</h1>
-			{:then grids}
-				<Grids data={grids} layerId="h3" />
-			{/await}
-
-			{#await stationsPromise}
-				<h1>Loading stations...</h1>
-			{:then stations}
-				<Stations data={stations} layerId="stations" />
-			{/await}
-
-			{#await routesPromise}
-				<h1>Loading routes...</h1>
-			{:then routes}
-				<Routes data={routes} layerId="routes" />
-			{/await}
+			<slot/>
 		{/if}
 	{/if}
 </div>

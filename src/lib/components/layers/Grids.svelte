@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { H3HexagonLayer } from '@deck.gl/geo-layers';
+	import { cellToLatLng } from 'h3-js';
 	import { map, focusId, hoverId, layers, deckOverlay, layerOption } from '$lib/store';
 	/**
 	 * @type {[]|undefined} data
@@ -36,7 +37,13 @@
 				getFillColor: (d) => [57, 133, 107, (d.capacity * 255) / 200],
 				getLineColor: (d) => (hId === d.name ? [255, 255, 255, 185] : [255, 255, 255, 0]),
 				getLineWidth: (d) => (hId === d.name ? 5 : 2),
-				onClick: (info, event) => focusId.set(info.object.name),
+				onClick: (info, event) => {
+					try {
+						// @ts-ignore return value must be LatLng, we just need to reverse it
+						$map.panTo(cellToLatLng(info.object.name).reverse());
+					} catch {}
+					focusId.set(info.object.name);
+				},
 				onHover: (info, event) => hoverId.set(info?.object?.name),
 				updateTriggers: {
 					getLineWidth: hId,

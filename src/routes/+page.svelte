@@ -1,16 +1,14 @@
 <script>
-	import { database, focusId, layerOption } from './store';
+	import { database, focusId, layerOption } from '$lib/store';
 	import {
 		getGridsQueryString,
 		getStationsQueryString,
 		getRouteQueryString,
 		getData
-	} from './query';
-	import Routes from './layers/Routes.svelte';
-	import Stations from './layers/Stations.svelte';
-	import Grids from './layers/Grids.svelte';
-	import Map from './Map.svelte';
-	import LayerControl from './LayerControl.svelte';
+	} from '$lib/query';
+	import { Routes, Stations, Grids } from '$lib/components/layers';
+	import { MapProvider } from '$lib/components/providers/map';
+	import { LayerControl } from '$lib/components/panels';
 
 	$: gridsQueryString = getGridsQueryString();
 	$: gridsPromise = getData($database, gridsQueryString);
@@ -25,7 +23,7 @@
 	<meta name="description" content="An exploratory data visualization tool for YouBike" />
 </svelte:head>
 
-<Map>
+<MapProvider>
 	{#await gridsPromise}
 		<h1>Loading grids...</h1>
 	{:then grids}
@@ -43,5 +41,5 @@
 	{:then routes}
 		<Routes data={routes} layerId="routes" />
 	{/await}
-</Map>
+</MapProvider>
 <LayerControl />

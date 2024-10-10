@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { MapboxOverlay } from '@deck.gl/mapbox';
-	import { map, deckOverlay, layers } from '../store';
+	import { map, deckOverlay, layers } from '$lib/store';
 
 	// update layers
 	$: if ($layers && $deckOverlay) {

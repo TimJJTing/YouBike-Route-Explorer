@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { ScatterplotLayer } from '@deck.gl/layers';
-	import { map, focusId, hoverId, layers, deckOverlay, layerOption } from '../store';
+	import { map, focusId, hoverId, layers, deckOverlay, layerOption } from '$lib/store';
 	/**
 	 * @type {[]|undefined} data
 	 */

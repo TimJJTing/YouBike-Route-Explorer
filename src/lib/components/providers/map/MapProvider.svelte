@@ -1,13 +1,19 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { map, deckOverlay } from './store';
-	import DeckOverlay from './layers/DeckOverlay.svelte';
-	mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
-	const mapStyle = import.meta.env.VITE_MAPBOX_MAPSTYLE || 'mapbox://styles/mapbox/dark-v9';
-
+	import { map, deckOverlay } from '$lib/store';
+	import { DeckOverlay } from '$lib/components/layers';
+	
+	/** @type {string} */
+	export let mapStyle = import.meta.env.VITE_MAPBOX_MAPSTYLE || 'mapbox://styles/mapbox/dark-v9';
+	/** @type {string} */
+	export let accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 	/** @type {import('mapbox-gl').LngLatLike}}*/
-	const center = [121.53, 25.045];
+	export let center = [121.53, 25.045];
+	/** @type {number} */
+	export let zoom = 11.5;
+	/** @type {number} */
+	export let pitch = 0;
 
 	let container;
 
@@ -17,11 +23,12 @@
 	onMount(async () => {
 		map.set(
 			new mapboxgl.Map({
+				accessToken,
 				container: 'container',
 				style: mapStyle,
-				center: center,
-				zoom: 11.5,
-				pitch: 0
+				center,
+				zoom,
+				pitch
 			})
 		);
 
@@ -38,7 +45,7 @@
 	{#if mapReady}
 		<DeckOverlay />
 		{#if $deckOverlay}
-			<slot/>
+			<slot />
 		{/if}
 	{/if}
 </div>

@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-	import { DuckDB } from '$lib/DuckDB';
-	import { database } from './store';
+	import { DuckDB } from '$lib/components/providers/duckdb/DuckDB';
+	import { database } from '$lib/store';
 	/**
 	 * @type {{ name: string; url: string; }[]}
 	 */

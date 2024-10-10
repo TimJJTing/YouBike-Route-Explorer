@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { PathLayer } from '@deck.gl/layers';
 	import { TripsLayer } from '@deck.gl/geo-layers';
-	import { map, layers, hoverId, deckOverlay, layerOption } from '../store';
+	import { map, layers, hoverId, deckOverlay, layerOption } from '$lib/store';
 	import { pathProcessor } from '$lib/pathProcessor';
 
 	/**

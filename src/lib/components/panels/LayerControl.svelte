@@ -3,7 +3,7 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
 	import * as RadioGroup from '$lib/components/ui/radio-group';
-	import { layerOption } from './store';
+	import { layerOption } from '$lib/store';
 </script>
 
 <Card.Root class="absolute bottom-0 right-0 m-8">

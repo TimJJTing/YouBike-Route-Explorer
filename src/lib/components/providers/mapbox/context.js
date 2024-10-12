@@ -3,18 +3,18 @@ import { getContext, setContext } from 'svelte';
 /**
  * @returns {import('svelte/store').Writable<import('mapbox-gl').Map|undefined>}
  */
-export const setMap = () => {
+export const setMapbox = () => {
 	/**
 	 * @type {import('svelte/store').Writable<import('mapbox-gl').Map|undefined>}
 	 */
-	let map = writable();
-	setContext('map', map);
-	return map;
+	let mapbox = writable();
+	setContext('mapbox', mapbox);
+	return mapbox;
 };
 
 /**
  * @returns {import('svelte/store').Writable<import('mapbox-gl').Map|undefined>}
  */
-export function getMap() {
-	return getContext('map');
+export function getMapbox() {
+	return getContext('mapbox');
 }

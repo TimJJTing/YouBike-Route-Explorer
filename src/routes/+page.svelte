@@ -7,7 +7,7 @@
 		getData
 	} from '$lib/query';
 	import { Routes, Stations, Grids } from '$lib/components/layers';
-	import { MapProvider } from '$lib/components/providers/map';
+	import { Mapbox } from '$lib/components/providers/mapbox';
 	import { DeckGL } from '$lib/components/providers/deckgl';
 	import { LayerControl } from '$lib/components/panels';
 	import { getDuckDB } from '$lib/components/providers/duckdb';
@@ -27,7 +27,7 @@
 	<meta name="description" content="An exploratory data visualization tool for YouBike" />
 </svelte:head>
 
-<MapProvider>
+<Mapbox>
 	<DeckGL>
 		{#await gridsPromise}
 			<h1>Loading grids...</h1>
@@ -47,5 +47,5 @@
 			<Routes data={routes} layerId="routes" />
 		{/await}
 	</DeckGL>
-</MapProvider>
+</Mapbox>
 <LayerControl />

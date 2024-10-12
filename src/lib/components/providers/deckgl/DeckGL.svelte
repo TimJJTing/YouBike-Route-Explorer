@@ -1,12 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
-	import { getMap } from '$lib/components/providers/map';
+	import { getMapbox } from '$lib/components/providers/mapbox';
 	import { setDeckGL, setLayers } from './context';
 
 	/** @type {import('@deck.gl/mapbox').MapboxOverlayProps | undefined} */
 	export let overlayProps = undefined;
 
-	let map = getMap();
+	let mapbox = getMapbox();
 	let deckgl = setDeckGL(overlayProps);
 	let layers = setLayers();
 
@@ -20,13 +20,13 @@
 	}
 
 	onMount(() => {
-		if ($map) {
-			$map.addControl($deckgl);
+		if ($mapbox) {
+			$mapbox.addControl($deckgl);
 		}
 		return () => {
 			if ($deckgl) {
 				$deckgl.finalize();
-				$map?.removeControl($deckgl);
+				$mapbox?.removeControl($deckgl);
 			}
 		};
 	});

@@ -1,2 +1,2 @@
-export { default as DuckDBProvider } from './DuckDBProvider.svelte';
+export { default as DuckDB } from './DuckDB.svelte';
 export { setDuckDB, getDuckDB } from './context';

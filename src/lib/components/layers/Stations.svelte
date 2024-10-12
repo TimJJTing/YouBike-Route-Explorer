@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { ScatterplotLayer } from '@deck.gl/layers';
 	import { focusId, hoverId, layerOption } from '$lib/store';
-	import { getMap } from '$lib/components/providers/map';
+	import { getMapbox } from '$lib/components/providers/mapbox';
 	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 	/**
 	 * @type {[]|undefined} data
@@ -14,7 +14,7 @@
 	 */
 	export let layerId = 'stations';
 
-	let map = getMap();
+	let mapbox = getMapbox();
 	let deckgl = getDeckGL();
 	let layers = getLayers();
 
@@ -28,9 +28,9 @@
 	 * @param {string | undefined} hId
 	 */
 	function render(visible, hId) {
-		if (data && $map && $layers && $deckgl) {
+		if (data && $mapbox && $layers && $deckgl) {
 			// @ts-ignore
-			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
+			const firstLabelLayerId = $mapbox.getStyle().layers.find((layer) => layer.type === 'symbol').id;
 			layer = new ScatterplotLayer({
 				id: layerId,
 				data,
@@ -42,7 +42,7 @@
 				getRadius: (d) => Math.max(d.capacity / 8, hId === d.stop_id ? 8 : 4),
 				getFillColor: (d) => (hId === d.stop_id ? [93, 211, 0, 255] : [93, 211, 0, 80]),
 				onClick: (info, event) => {
-					$map.panTo([info.object.longitude, info.object.latitude]);
+					$mapbox.panTo([info.object.longitude, info.object.latitude]);
 					focusId.set(info.object.stop_id);
 				},
 				onHover: (info, event) => hoverId.set(info?.object?.stop_id),

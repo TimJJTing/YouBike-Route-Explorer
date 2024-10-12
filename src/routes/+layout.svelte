@@ -1,7 +1,7 @@
 <script>
 	import '../app.css';
 	import { base } from '$app/paths';
-	import { DuckDBProvider } from '$lib/components/providers/duckdb';
+	import { DuckDB } from '$lib/components/providers/duckdb';
 	/** @type {{name: string, url: string}[]} */
 	let connections = [
 		{ name: 'yb_route_weekday_tpc.parquet', url: `${base}/yb_route_weekday_tpc.parquet` },
@@ -12,9 +12,9 @@
 
 <div class="app">
 	<main>
-		<DuckDBProvider {connections}>
+		<DuckDB {connections}>
 			<slot></slot>
-		</DuckDBProvider>
+		</DuckDB>
 	</main>
 </div>
 

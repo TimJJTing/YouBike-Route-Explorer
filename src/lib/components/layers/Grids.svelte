@@ -3,7 +3,7 @@
 	import { H3HexagonLayer } from '@deck.gl/geo-layers';
 	import { cellToLatLng } from 'h3-js';
 	import { focusId, hoverId, layerOption } from '$lib/store';
-	import { getMap } from '$lib/components/providers/map';
+	import { getMapbox } from '$lib/components/providers/mapbox';
 	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 	/**
 	 * @type {[]|undefined} data
@@ -15,7 +15,7 @@
 	 */
 	export let layerId = 'h3';
 
-	let map = getMap();
+	let mapbox = getMapbox();
 	let deckgl = getDeckGL();
 	let layers = getLayers();
 
@@ -29,9 +29,9 @@
 	 * @param {string | undefined} hId
 	 */
 	function render(visible, hId) {
-		if (data && $map && $layers && $deckgl) {
+		if (data && $mapbox && $layers && $deckgl) {
 			// @ts-ignore
-			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
+			const firstLabelLayerId = $mapbox.getStyle().layers.find((layer) => layer.type === 'symbol').id;
 			layer = new H3HexagonLayer({
 				id: layerId,
 				data,
@@ -46,7 +46,7 @@
 				onClick: (info, event) => {
 					try {
 						// @ts-ignore return value must be LatLng, we just need to reverse it
-						$map.panTo(cellToLatLng(info.object.name).reverse());
+						$mapbox.panTo(cellToLatLng(info.object.name).reverse());
 					} catch {}
 					focusId.set(info.object.name);
 				},

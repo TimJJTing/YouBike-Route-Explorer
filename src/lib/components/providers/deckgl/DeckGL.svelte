@@ -14,8 +14,15 @@
 	$: if ($layers && $deckgl) {
 		$deckgl.setProps({
 			layers: $layers,
-			getTooltip: ({ object }) =>
-				object && `${object.name}: ${object.sum_of_txn_times ?? object.capacity}`
+			getTooltip: ({ object }) => {
+				if (object?.sum_of_txn_times !== undefined) {
+					return `${object.name}: ${object.sum_of_txn_times} ticketed trips`;
+				} else if (object?.capacity !== undefined) {
+					return `${object.name}: ${object.capacity} YouBike slots`;
+				} else if (object?.name) {
+					return object.name;
+				}
+			}
 		});
 	}
 
@@ -31,6 +38,5 @@
 		};
 	});
 </script>
-
 
 <slot />

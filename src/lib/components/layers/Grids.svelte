@@ -6,7 +6,7 @@
 	import { getMap } from '$lib/components/providers/mapbox';
 	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 	/**
-	 * @type {[]|undefined} data
+	 * @type {any[]|undefined} data
 	 */
 	export let data = undefined;
 

@@ -1,8 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { deckOverlay } from '$lib/store';
-	import { DeckOverlay } from '$lib/components/layers';
 	import { setMap } from './context';
 
 	/** @type {string} */
@@ -55,10 +53,7 @@
 </svelte:head>
 <div id="container" bind:this={container}>
 	{#if mapReady}
-		<DeckOverlay />
-		{#if $deckOverlay}
-			<slot />
-		{/if}
+		<slot />
 	{/if}
 </div>
 

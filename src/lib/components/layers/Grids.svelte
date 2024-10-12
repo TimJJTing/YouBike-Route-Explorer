@@ -2,8 +2,9 @@
 	import { onMount } from 'svelte';
 	import { H3HexagonLayer } from '@deck.gl/geo-layers';
 	import { cellToLatLng } from 'h3-js';
-	import { focusId, hoverId, layers, deckOverlay, layerOption } from '$lib/store';
+	import { focusId, hoverId, layerOption } from '$lib/store';
 	import { getMap } from '$lib/components/providers/map';
+	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 	/**
 	 * @type {[]|undefined} data
 	 */
@@ -15,6 +16,8 @@
 	export let layerId = 'h3';
 
 	let map = getMap();
+	let deckgl = getDeckGL();
+	let layers = getLayers();
 
 	/**
 	 * @type {H3HexagonLayer|undefined} data
@@ -26,7 +29,7 @@
 	 * @param {string | undefined} hId
 	 */
 	function render(visible, hId) {
-		if (data && $map && $layers && $deckOverlay) {
+		if (data && $map && $layers && $deckgl) {
 			// @ts-ignore
 			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
 			layer = new H3HexagonLayer({
@@ -59,7 +62,7 @@
 			if (layerIdx > -1) {
 				$layers = [...$layers];
 				$layers[layerIdx] = layer;
-				$deckOverlay.setProps({ layers: $layers });
+				$deckgl.setProps({ layers: $layers });
 			} else {
 				$layers = [...$layers, layer];
 			}

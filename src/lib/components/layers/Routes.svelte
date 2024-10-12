@@ -2,9 +2,10 @@
 	import { onMount } from 'svelte';
 	import { PathLayer } from '@deck.gl/layers';
 	import { TripsLayer } from '@deck.gl/geo-layers';
-	import { layers, hoverId, deckOverlay, layerOption } from '$lib/store';
+	import { hoverId, layerOption } from '$lib/store';
 	import { pathProcessor } from '$lib/pathProcessor';
 	import { getMap } from '$lib/components/providers/map';
+	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 
 	/**
 	 * @type {[]|undefined} data
@@ -17,6 +18,8 @@
 	export let layerId = 'routes';
 
 	let map = getMap();
+	let deckgl = getDeckGL();
+	let layers = getLayers();
 
 	/**
 	 * @type {[number, number, number][]}
@@ -88,7 +91,7 @@
 	 * @param {number} timestamp
 	 */
 	function renderTripsLayer(visible, pathFlow, timestamp) {
-		if (data && $map && $layers && $deckOverlay) {
+		if (data && $map && $layers && $deckgl) {
 			// @ts-ignore
 			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
 
@@ -117,7 +120,7 @@
 			if (layerIdx > -1) {
 				$layers = [...$layers];
 				$layers[layerIdx] = tripsLayer;
-				$deckOverlay.setProps({ layers: $layers });
+				$deckgl.setProps({ layers: $layers });
 			} else {
 				$layers = [...$layers, tripsLayer];
 			}
@@ -130,7 +133,7 @@
 	 * @param {Object[] | undefined} pathFlow
 	 */
 	function renderPathLayer(visible, hId, pathFlow) {
-		if (data && $map && $layers && $deckOverlay) {
+		if (data && $map && $layers && $deckgl) {
 			// @ts-ignore
 			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
 
@@ -161,7 +164,7 @@
 			if (layerIdx > -1) {
 				$layers = [...$layers];
 				$layers[layerIdx] = pathLayer;
-				$deckOverlay.setProps({ layers: $layers });
+				$deckgl.setProps({ layers: $layers });
 			} else {
 				$layers = [...$layers, pathLayer];
 			}

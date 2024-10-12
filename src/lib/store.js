@@ -1,11 +1,5 @@
 import { writable } from 'svelte/store';
 
-/** @type {import('svelte/store').Writable<import('@deck.gl/mapbox').MapboxOverlay|undefined>}}*/
-export const deckOverlay = writable(undefined);
-
-/** @type {import('svelte/store').Writable<import('@deck.gl/core').Layer[]|undefined>}}*/
-export const layers = writable([]);
-
 /** @type {import('svelte/store').Writable<string|undefined>}}*/
 export const focusId = writable('U101001');
 

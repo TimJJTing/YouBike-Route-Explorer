@@ -3,7 +3,7 @@ export const getGridsQueryString = () =>
 export const getStationsQueryString = () =>
 	`SELECT stop_id, stop_name AS name, latitude, longitude, capacity FROM parquet_scan('yb_stations_tpc.parquet')`;
 /**
- * @param {string|undefined} focusId
+ * @param {string|undefined|null} focusId
  * @param {'all'|'inbound'|'outbound'} routeType
  */
 export const getRouteQueryString = (focusId, routeType) => {

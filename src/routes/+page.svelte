@@ -1,5 +1,5 @@
 <script>
-	import { focusId, layerOption } from '$lib/store';
+	import { focus, layerOption } from '$lib/store';
 	import {
 		getGridsQueryString,
 		getStationsQueryString,
@@ -9,7 +9,7 @@
 	import { Routes, Stations, Grids } from '$lib/components/layers';
 	import { Mapbox } from '$lib/components/providers/mapbox';
 	import { DeckGL } from '$lib/components/providers/deckgl';
-	import { LayerControl } from '$lib/components/panels';
+	import { LayerControl, InfoPanel } from '$lib/components/panels';
 	import { getDuckDB } from '$lib/components/providers/duckdb';
 
 	let duckdb = getDuckDB();
@@ -18,7 +18,7 @@
 	$: gridsPromise = getData($duckdb, gridsQueryString);
 	$: stationsQueryString = getStationsQueryString();
 	$: stationsPromise = getData($duckdb, stationsQueryString);
-	$: routesQueryString = getRouteQueryString($focusId, $layerOption.routes.routeType);
+	$: routesQueryString = getRouteQueryString($focus.id, $layerOption.routes.routeType);
 	$: routesPromise = getData($duckdb, routesQueryString);
 </script>
 
@@ -49,3 +49,4 @@
 	</DeckGL>
 </Mapbox>
 <LayerControl />
+<InfoPanel />

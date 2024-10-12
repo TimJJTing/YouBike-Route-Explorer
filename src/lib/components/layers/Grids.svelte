@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { H3HexagonLayer } from '@deck.gl/geo-layers';
 	import { cellToLatLng } from 'h3-js';
-	import { focusId, hoverId, layerOption } from '$lib/store';
+	import { focus, hoverId, layerOption } from '$lib/store';
 	import { getMap } from '$lib/components/providers/mapbox';
 	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 	/**
@@ -48,7 +48,7 @@
 						// @ts-ignore return value must be LatLng, we just need to reverse it
 						$map.panTo(cellToLatLng(info.object.name).reverse());
 					} catch {}
-					focusId.set(info.object.name);
+					focus.set({id: info.object.name, name: info.object.name});
 				},
 				onHover: (info, event) => hoverId.set(info?.object?.name),
 				updateTriggers: {

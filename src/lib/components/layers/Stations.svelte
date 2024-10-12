@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { ScatterplotLayer } from '@deck.gl/layers';
-	import { focusId, hoverId, layerOption } from '$lib/store';
+	import { focus, hoverId, layerOption } from '$lib/store';
 	import { getMap } from '$lib/components/providers/mapbox';
 	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 	/**
@@ -43,7 +43,7 @@
 				getFillColor: (d) => (hId === d.stop_id ? [93, 211, 0, 255] : [93, 211, 0, 80]),
 				onClick: (info, event) => {
 					$map.panTo([info.object.longitude, info.object.latitude]);
-					focusId.set(info.object.stop_id);
+					focus.set({id: info.object.stop_id, name: info.object.name});
 				},
 				onHover: (info, event) => hoverId.set(info?.object?.stop_id),
 				updateTriggers: {

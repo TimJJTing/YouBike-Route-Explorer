@@ -6,7 +6,7 @@
 	import { layerOption } from '$lib/store';
 </script>
 
-<Card.Root class="absolute bottom-0 right-0 m-8">
+<Card.Root class="absolute top-0 right-0 m-8 bg-zinc-900">
 	<Card.Header>
 		<Card.Title>Layers</Card.Title>
 	</Card.Header>

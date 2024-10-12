@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import { setMapbox } from './context';
+	import 'mapbox-gl/dist/mapbox-gl.css';
 
 	/** @type {string} */
 	export let mapStyle = import.meta.env.VITE_MAPBOX_MAPSTYLE || 'mapbox://styles/mapbox/dark-v9';
@@ -48,9 +49,6 @@
 	});
 </script>
 
-<svelte:head>
-	<link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
-</svelte:head>
 <div id="container" bind:this={container}>
 	{#if mapReady}
 		<slot />

@@ -1,6 +1,22 @@
 import * as duckdb from '@duckdb/duckdb-wasm';
-import duckdb_wasm from '/node_modules/@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm?url';
-import duckdb_worker from '/node_modules/@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?worker';
+import duckdb_wasm from '@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm?url';
+import mvp_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?url';
+import duckdb_wasm_eh from '@duckdb/duckdb-wasm/dist/duckdb-eh.wasm?url';
+import eh_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js?url';
+
+/**
+ * @type {import('@duckdb/duckdb-wasm').DuckDBBundles}
+ */
+const MANUAL_BUNDLES = {
+	mvp: {
+		mainModule: duckdb_wasm,
+		mainWorker: mvp_worker
+	},
+	eh: {
+		mainModule: duckdb_wasm_eh,
+		mainWorker: eh_worker
+	}
+};
 
 export class DuckDB {
 	/**
@@ -47,14 +63,19 @@ export class DuckDB {
 			return this._db; // Return existing database, if any
 		}
 
-		// Instantiate worker
-		const logger = new duckdb.ConsoleLogger();
-		const worker = new duckdb_worker();
+		// Select a bundle based on browser checks
+		const bundle = await duckdb.selectBundle(MANUAL_BUNDLES);
+		if (bundle.mainWorker) {
+			// Instantiate the asynchronus version of DuckDB-wasm
+			const worker = new Worker(bundle.mainWorker);
+			const logger = new duckdb.ConsoleLogger();
 
-		// and asynchronous database
-		this._db = new duckdb.AsyncDuckDB(logger, worker);
-		await this._db.instantiate(duckdb_wasm);
-		return this._db;
+			// and asynchronous database
+			this._db = new duckdb.AsyncDuckDB(logger, worker);
+			await this._db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+			return this._db;
+		}
+		return null;
 	}
 
 	/**
@@ -66,7 +87,7 @@ export class DuckDB {
 			if (db) {
 				this.connections.forEach(async (c) => {
 					await db.registerFileURL(c.name, c.url, this._proto, this._directIO);
-				})
+				});
 				this._conn = await db.connect();
 			}
 			return this._conn;

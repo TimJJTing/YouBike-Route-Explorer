@@ -1,5 +1,5 @@
 <script>
-	import { database, focusId, layerOption } from '$lib/store';
+	import { focusId, layerOption } from '$lib/store';
 	import {
 		getGridsQueryString,
 		getStationsQueryString,
@@ -9,13 +9,16 @@
 	import { Routes, Stations, Grids } from '$lib/components/layers';
 	import { MapProvider } from '$lib/components/providers/map';
 	import { LayerControl } from '$lib/components/panels';
+	import { getDuckDB } from '$lib/components/providers/duckdb';
+
+	let duckdb = getDuckDB();
 
 	$: gridsQueryString = getGridsQueryString();
-	$: gridsPromise = getData($database, gridsQueryString);
+	$: gridsPromise = getData($duckdb, gridsQueryString);
 	$: stationsQueryString = getStationsQueryString();
-	$: stationsPromise = getData($database, stationsQueryString);
+	$: stationsPromise = getData($duckdb, stationsQueryString);
 	$: routesQueryString = getRouteQueryString($focusId, $layerOption.routes.routeType);
-	$: routesPromise = getData($database, routesQueryString);
+	$: routesPromise = getData($duckdb, routesQueryString);
 </script>
 
 <svelte:head>

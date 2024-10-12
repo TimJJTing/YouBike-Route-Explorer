@@ -1,22 +1,21 @@
 <script>
 	import { onMount } from 'svelte';
-	import { DuckDB } from '$lib/components/providers/duckdb/DuckDB';
-	import { database } from '$lib/store';
+	import { setDuckDB } from './context';
 	/**
 	 * @type {{ name: string; url: string; }[]}
 	 */
 	export let connections = [];
+
+	let duckdb = setDuckDB(connections);
+
 	onMount(() => {
-		database.update(() => new DuckDB(connections));
 		return () => {
-			if ($database) {
-				$database.disconnect();
-			}
+			$duckdb?.disconnect();
 		};
 	});
 </script>
 
-{#await $database?.connect()}
+{#await $duckdb?.connect()}
 	Loading...
 {:then conn}
 	<slot></slot>

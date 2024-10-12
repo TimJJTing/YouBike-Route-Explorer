@@ -4,7 +4,7 @@
 	import { TripsLayer } from '@deck.gl/geo-layers';
 	import { hoverId, layerOption } from '$lib/store';
 	import { pathProcessor } from '$lib/pathProcessor';
-	import { getMapbox } from '$lib/components/providers/mapbox';
+	import { getMap } from '$lib/components/providers/mapbox';
 	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 
 	/**
@@ -17,7 +17,7 @@
 	 */
 	export let layerId = 'routes';
 
-	let mapbox = getMapbox();
+	let map = getMap();
 	let deckgl = getDeckGL();
 	let layers = getLayers();
 
@@ -91,9 +91,9 @@
 	 * @param {number} timestamp
 	 */
 	function renderTripsLayer(visible, pathFlow, timestamp) {
-		if (data && $mapbox && $layers && $deckgl) {
+		if (data && $map && $layers && $deckgl) {
 			// @ts-ignore
-			const firstLabelLayerId = $mapbox.getStyle().layers.find((layer) => layer.type === 'symbol').id;
+			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
 
 			tripsLayer = new TripsLayer({
 				id: tripsLayerId,
@@ -133,9 +133,9 @@
 	 * @param {Object[] | undefined} pathFlow
 	 */
 	function renderPathLayer(visible, hId, pathFlow) {
-		if (data && $mapbox && $layers && $deckgl) {
+		if (data && $map && $layers && $deckgl) {
 			// @ts-ignore
-			const firstLabelLayerId = $mapbox.getStyle().layers.find((layer) => layer.type === 'symbol').id;
+			const firstLabelLayerId = $map.getStyle().layers.find((layer) => layer.type === 'symbol').id;
 
 			pathLayer = new PathLayer({
 				id: pathLayerId,

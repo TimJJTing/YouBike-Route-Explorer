@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { setMapbox } from './context';
+	import { setMap } from './context';
 	import 'mapbox-gl/dist/mapbox-gl.css';
 
 	/** @type {string} */
@@ -24,8 +24,8 @@
 	/** @type {boolean} */
 	let mapReady = false;
 
-	// mapboxgl requires a container mounted in the dom already before initialization, so we cannot new a Map in the setMapbox context
-	let map = setMapbox();
+	// mapboxgl requires a container mounted in the dom already before initialization, so we cannot new a Map in the setMap context
+	let map = setMap();
 
 	onMount(() => {
 		$map = new mapboxgl.Map({

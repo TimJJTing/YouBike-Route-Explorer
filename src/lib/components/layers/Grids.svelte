@@ -2,7 +2,8 @@
 	import { onMount } from 'svelte';
 	import { H3HexagonLayer } from '@deck.gl/geo-layers';
 	import { cellToLatLng } from 'h3-js';
-	import { map, focusId, hoverId, layers, deckOverlay, layerOption } from '$lib/store';
+	import { focusId, hoverId, layers, deckOverlay, layerOption } from '$lib/store';
+	import { getMap } from '$lib/components/providers/map';
 	/**
 	 * @type {[]|undefined} data
 	 */
@@ -12,6 +13,8 @@
 	 * @type {string} layer ID
 	 */
 	export let layerId = 'h3';
+
+	let map = getMap();
 
 	/**
 	 * @type {H3HexagonLayer|undefined} data

@@ -1,8 +1,10 @@
 <script>
 	import { onMount } from 'svelte';
 	import { MapboxOverlay } from '@deck.gl/mapbox';
-	import { map, deckOverlay, layers } from '$lib/store';
+	import { getMap } from '$lib/components/providers/map';
+	import { deckOverlay, layers } from '$lib/store';
 
+	let map = getMap();
 	// update layers
 	$: if ($layers && $deckOverlay) {
 		$deckOverlay.setProps({

@@ -2,8 +2,9 @@
 	import { onMount } from 'svelte';
 	import { PathLayer } from '@deck.gl/layers';
 	import { TripsLayer } from '@deck.gl/geo-layers';
-	import { map, layers, hoverId, deckOverlay, layerOption } from '$lib/store';
+	import { layers, hoverId, deckOverlay, layerOption } from '$lib/store';
 	import { pathProcessor } from '$lib/pathProcessor';
+	import { getMap } from '$lib/components/providers/map';
 
 	/**
 	 * @type {[]|undefined} data
@@ -14,6 +15,8 @@
 	 * @type {string} layer ID
 	 */
 	export let layerId = 'routes';
+
+	let map = getMap();
 
 	/**
 	 * @type {[number, number, number][]}

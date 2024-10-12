@@ -1,7 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import { ScatterplotLayer } from '@deck.gl/layers';
-	import { map, focusId, hoverId, layers, deckOverlay, layerOption } from '$lib/store';
+	import { focusId, hoverId, layers, deckOverlay, layerOption } from '$lib/store';
+	import { getMap } from '$lib/components/providers/map';
 	/**
 	 * @type {[]|undefined} data
 	 */
@@ -11,6 +12,8 @@
 	 * @type {string} layer ID
 	 */
 	export let layerId = 'stations';
+
+	let map = getMap();
 
 	/**
 	 * @type {ScatterplotLayer|undefined} data

@@ -1,9 +1,10 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { map, deckOverlay } from '$lib/store';
+	import { deckOverlay } from '$lib/store';
 	import { DeckOverlay } from '$lib/components/layers';
-	
+	import { setMap } from './context';
+
 	/** @type {string} */
 	export let mapStyle = import.meta.env.VITE_MAPBOX_MAPSTYLE || 'mapbox://styles/mapbox/dark-v9';
 	/** @type {string} */
@@ -14,27 +15,38 @@
 	export let zoom = 11.5;
 	/** @type {number} */
 	export let pitch = 0;
+	/**
+	 * Other Mapbox GL JS's global properties and options that you can access while initializing your map or accessing information about its status.
+	 * @type {import('mapbox-gl').MapOptions|undefined}
+	 */
+	export let mapOptions = undefined;
 
 	let container;
-
 	/** @type {boolean} */
 	let mapReady = false;
 
-	onMount(async () => {
-		map.set(
-			new mapboxgl.Map({
-				accessToken,
-				container: 'container',
-				style: mapStyle,
-				center,
-				zoom,
-				pitch
-			})
-		);
+	// mapboxgl requires a container mounted in the dom already before initialization, so we cannot new a Map in the setMap context
+	let map = setMap();
+
+	onMount(() => {
+		$map = new mapboxgl.Map({
+			accessToken,
+			container: 'container',
+			style: mapStyle,
+			center,
+			zoom,
+			pitch,
+			...(mapOptions || {})
+		});
 
 		$map?.on('load', () => {
 			mapReady = true;
 		});
+
+		return () => {
+			// remove map instance to release resources
+			$map?.remove();
+		};
 	});
 </script>
 

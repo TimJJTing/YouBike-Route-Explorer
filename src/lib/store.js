@@ -1,8 +1,5 @@
 import { writable } from 'svelte/store';
 
-/** @type {import('svelte/store').Writable<import('mapbox-gl').Map|undefined>}}*/
-export const map = writable(undefined);
-
 /** @type {import('svelte/store').Writable<import('@deck.gl/mapbox').MapboxOverlay|undefined>}}*/
 export const deckOverlay = writable(undefined);
 

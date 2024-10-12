@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { getContext, setContext } from 'svelte';
-import { DuckDB } from '$lib/components/providers/duckdb/DuckDB';
+import { DuckDB } from './DuckDB';
 
 /**
  * @param {{ name: string; url: string; }[]} connections

@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
-/** @type {import('svelte/store').Writable<{id: string|null, name: string|null}>}}*/
-export const focus = writable({id: null, name: null});
+/** @type {import('svelte/store').Writable<{id: string|null, name: string|null, type: 'grid'|'station'|null, [key: string]: any}>}}*/
+export const focus = writable({ id: null, name: null, type: null });
 
 /** @type {import('svelte/store').Writable<string|undefined>}}*/
 export const hoverId = writable(undefined);

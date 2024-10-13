@@ -39,13 +39,16 @@
 				opacity: 1,
 				visible,
 				getPosition: (d) => [d.longitude, d.latitude],
-				getRadius: (d) => Math.max(d.capacity / 8, hId === d.stop_id ? 8 : 4),
-				getFillColor: (d) => (hId === d.stop_id ? [93, 211, 0, 255] : [93, 211, 0, 80]),
+				getRadius: (d) => Math.max(d.capacity / 8, hId === d.id ? 8 : 4),
+				getFillColor: (d) => (hId === d.id ? [93, 211, 0, 255] : [93, 211, 0, 80]),
 				onClick: (info, event) => {
 					$map.panTo([info.object.longitude, info.object.latitude]);
-					focus.set({id: info.object.stop_id, name: info.object.name});
+					focus.set({
+						type: 'station',
+						...info.object
+					});
 				},
-				onHover: (info, event) => hoverId.set(info?.object?.stop_id),
+				onHover: (info, event) => hoverId.set(info?.object?.id),
 				updateTriggers: {
 					getFillColor: hId,
 					getRadius: hId,

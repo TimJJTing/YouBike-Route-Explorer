@@ -39,18 +39,21 @@
 				pickable: true,
 				opacity: 0.8,
 				visible,
-				getHexagon: (d) => d.name,
+				getHexagon: (d) => d.id,
 				getFillColor: (d) => [57, 133, 107, (d.capacity * 255) / 200],
-				getLineColor: (d) => (hId === d.name ? [255, 255, 255, 185] : [255, 255, 255, 0]),
-				getLineWidth: (d) => (hId === d.name ? 5 : 2),
+				getLineColor: (d) => (hId === d.id ? [255, 255, 255, 185] : [255, 255, 255, 0]),
+				getLineWidth: (d) => (hId === d.id ? 5 : 2),
 				onClick: (info, event) => {
 					try {
 						// @ts-ignore return value must be LatLng, we just need to reverse it
-						$map.panTo(cellToLatLng(info.object.name).reverse());
+						$map.panTo(cellToLatLng(info.object.id).reverse());
 					} catch {}
-					focus.set({id: info.object.name, name: info.object.name});
+					focus.set({
+						type: 'grid',
+						...info.object
+					});
 				},
-				onHover: (info, event) => hoverId.set(info?.object?.name),
+				onHover: (info, event) => hoverId.set(info?.object?.id),
 				updateTriggers: {
 					getLineWidth: hId,
 					getLineColor: hId,

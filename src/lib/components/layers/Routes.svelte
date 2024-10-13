@@ -51,7 +51,7 @@
 	$: pathLayerId = `${layerId}-path`;
 
 	/**
-	 * @type {string | number | NodeJS.Timer | undefined}
+	 * @type {NodeJS.Timeout}
 	 */
 	let interval;
 

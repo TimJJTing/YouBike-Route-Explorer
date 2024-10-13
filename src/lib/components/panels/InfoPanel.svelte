@@ -55,7 +55,7 @@
 							{/if}
 						{/await}
 					</div>
-					<div class="text-[0.70rem] text-muted-foreground">Ticketed Rides</div>
+					<div class="text-[0.70rem] text-muted-foreground">Ticketed Trips</div>
 				</div>
 			</div>
 			<div class="mt-4 flex items-center space-x-2">

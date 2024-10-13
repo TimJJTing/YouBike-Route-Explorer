@@ -1,7 +1,6 @@
 <script>
 	import * as Info from '$lib/components/ui/info';
-	import * as RadioGroup from '$lib/components/ui/radio-group';
-	import { Label } from '$lib/components/ui/label/index.js';
+	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import { getRouteInsightQueryString, getData } from '$lib/query';
 	import { focus, layerOption } from '$lib/store';
 	import { getDuckDB } from '$lib/components/providers/duckdb';
@@ -60,20 +59,16 @@
 				</div>
 			</div>
 			<div class="mt-4 flex items-center space-x-2">
-				<RadioGroup.Root bind:value={$layerOption.routes.routeType}>
-					<div class="flex items-center space-x-2">
-						<RadioGroup.Item value="all" id="option-all" />
-						<Label for="option-all">All</Label>
-					</div>
-					<div class="flex items-center space-x-2">
-						<RadioGroup.Item value="inbound" id="option-inbound" />
-						<Label for="option-inbound">Inbound</Label>
-					</div>
-					<div class="flex items-center space-x-2">
-						<RadioGroup.Item value="outbound" id="option-outbound" />
-						<Label for="option-outbound">Outbound</Label>
-					</div>
-				</RadioGroup.Root>
+				<Tabs.Root bind:value={$layerOption.routes.routeType} class="w-full">
+					<Tabs.List class="grid w-full grid-cols-3">
+						<Tabs.Trigger value="all">All</Tabs.Trigger>
+						<Tabs.Trigger value="inbound">Inbound</Tabs.Trigger>
+						<Tabs.Trigger value="outbound">Outbound</Tabs.Trigger>
+					</Tabs.List>
+					<Tabs.Content value="all">all</Tabs.Content>
+					<Tabs.Content value="inbound">inbound</Tabs.Content>
+					<Tabs.Content value="outbound">outbound</Tabs.Content>
+				</Tabs.Root>
 			</div>
 		</Info.Content>
 	</Info.Root>

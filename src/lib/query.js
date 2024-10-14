@@ -9,11 +9,13 @@ export const getStationsQueryString = () =>
  */
 export const getRoutesQueryString = (focusId, routeType) => {
 	let routeTypeClause = '';
+	// TODO: also order by distance
+	let orderClause = 'ORDER BY sum_of_txn_times DESC'; 
 	if (routeType === 'inbound') routeTypeClause = `AND off_id='${focusId}'`;
 	else if (routeType === 'outbound') routeTypeClause = `AND on_id='${focusId}'`;
 	else if (routeType === 'all')
 		routeTypeClause = `AND ( on_id='${focusId}' OR off_id='${focusId}' )`;
-	let queryString = `SELECT * FROM parquet_scan('yb_route_weekday_tpc.parquet') WHERE off_id != on_id ${routeTypeClause};`;
+	let queryString = `SELECT * FROM parquet_scan('yb_route_weekday_tpc.parquet') WHERE off_id != on_id ${routeTypeClause} ${orderClause};`;
 	return queryString;
 };
 // TODO: also count looping routes

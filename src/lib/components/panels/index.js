@@ -1,2 +1,2 @@
 export { default as LayerControl } from './LayerControl.svelte';
-export { default as InfoPanel } from './InfoPanel.svelte';
+export { InfoPanel } from './InfoPanel';

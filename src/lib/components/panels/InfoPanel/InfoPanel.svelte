@@ -1,7 +1,9 @@
 <script>
 	import * as Info from '$lib/components/ui/info';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
-	import { focus, layerOption, routesQuery, routesInsightQuery } from '$lib/store';
+	import { focus, layerOption, routesInsightQuery } from '$lib/store';
+	import RoutesTable from './RoutesTable.svelte';
+	const tabs = ['all', 'inbound', 'outbound'];
 </script>
 
 {#if $focus.id}
@@ -56,28 +58,15 @@
 			<div class="mt-4 flex items-center space-x-2">
 				<Tabs.Root bind:value={$layerOption.routes.routeType} class="w-full">
 					<Tabs.List class="grid w-full grid-cols-3">
-						<Tabs.Trigger value="all">All</Tabs.Trigger>
-						<Tabs.Trigger value="inbound">Inbound</Tabs.Trigger>
-						<Tabs.Trigger value="outbound">Outbound</Tabs.Trigger>
+						{#each tabs as tab (`${tab}-list`)}
+							<Tabs.Trigger value={tab}>{tab[0].toUpperCase() + tab.slice(1)}</Tabs.Trigger>
+						{/each}
 					</Tabs.List>
-					<Tabs.Content value="all">
-						all
-						{#await $routesQuery then routes}
-							{routes?.length}
-						{/await}
-					</Tabs.Content>
-					<Tabs.Content value="inbound">
-						inbound
-						{#await $routesQuery then routes}
-							{routes?.length}
-						{/await}
-					</Tabs.Content>
-					<Tabs.Content value="outbound">
-						outbound
-						{#await $routesQuery then routes}
-							{routes?.length}
-						{/await}
-					</Tabs.Content>
+					{#each tabs as tab (tab)}
+						<Tabs.Content value={tab}>
+							<RoutesTable />
+						</Tabs.Content>
+					{/each}
 				</Tabs.Root>
 			</div>
 		</Info.Content>

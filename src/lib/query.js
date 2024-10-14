@@ -7,7 +7,7 @@ export const getStationsQueryString = () =>
  * @param {string|undefined|null} focusId
  * @param {'all'|'inbound'|'outbound'} routeType
  */
-export const getRouteQueryString = (focusId, routeType) => {
+export const getRoutesQueryString = (focusId, routeType) => {
 	let routeTypeClause = '';
 	if (routeType === 'inbound') routeTypeClause = `AND off_id='${focusId}'`;
 	else if (routeType === 'outbound') routeTypeClause = `AND on_id='${focusId}'`;
@@ -21,7 +21,7 @@ export const getRouteQueryString = (focusId, routeType) => {
  * @param {string|undefined|null} focusId
  * @param {'all'|'inbound'|'outbound'} routeType
  */
-export const getRouteInsightQueryString = (focusId, routeType) => {
+export const getRoutesInsightQueryString = (focusId, routeType) => {
 	let routeTypeClause = '';
 	if (routeType === 'inbound') routeTypeClause = `AND off_id='${focusId}'`;
 	else if (routeType === 'outbound') routeTypeClause = `AND on_id='${focusId}'`;

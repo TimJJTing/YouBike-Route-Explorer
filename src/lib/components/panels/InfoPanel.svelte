@@ -1,12 +1,7 @@
 <script>
 	import * as Info from '$lib/components/ui/info';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
-	import { getRouteInsightQueryString, getData } from '$lib/query';
-	import { focus, layerOption } from '$lib/store';
-	import { getDuckDB } from '$lib/components/providers/duckdb';
-	let duckdb = getDuckDB();
-	$: routesQueryString = getRouteInsightQueryString($focus.id, $layerOption.routes.routeType);
-	$: routesPromise = getData($duckdb, routesQueryString);
+	import { focus, layerOption, routesQuery, routesInsightQuery } from '$lib/store';
 </script>
 
 {#if $focus.id}
@@ -25,10 +20,10 @@
 				</div>
 				<div class="flex-1 text-center">
 					<div class="text-5xl font-bold tracking-tighter">
-						{#await routesPromise}
+						{#await $routesInsightQuery}
 							<span>...</span>
-						{:then routes}
-							{@const number = routes?.[0]?.routes ?? undefined}
+						{:then insight}
+							{@const number = insight?.[0]?.routes ?? undefined}
 							{#if number === undefined}
 								<span>--</span>
 							{:else}
@@ -42,10 +37,10 @@
 				</div>
 				<div class="flex-1 text-center">
 					<div class="text-5xl font-bold tracking-tighter">
-						{#await routesPromise}
+						{#await $routesInsightQuery}
 							<span>...</span>
-						{:then routes}
-							{@const number = routes?.[0]?.sum_of_txn_times ?? undefined}
+						{:then insight}
+							{@const number = insight?.[0]?.sum_of_txn_times ?? undefined}
 							{#if number === undefined}
 								<span>--</span>
 							{:else}
@@ -65,9 +60,24 @@
 						<Tabs.Trigger value="inbound">Inbound</Tabs.Trigger>
 						<Tabs.Trigger value="outbound">Outbound</Tabs.Trigger>
 					</Tabs.List>
-					<Tabs.Content value="all">all</Tabs.Content>
-					<Tabs.Content value="inbound">inbound</Tabs.Content>
-					<Tabs.Content value="outbound">outbound</Tabs.Content>
+					<Tabs.Content value="all">
+						all
+						{#await $routesQuery then routes}
+							{routes?.length}
+						{/await}
+					</Tabs.Content>
+					<Tabs.Content value="inbound">
+						inbound
+						{#await $routesQuery then routes}
+							{routes?.length}
+						{/await}
+					</Tabs.Content>
+					<Tabs.Content value="outbound">
+						outbound
+						{#await $routesQuery then routes}
+							{routes?.length}
+						{/await}
+					</Tabs.Content>
 				</Tabs.Root>
 			</div>
 		</Info.Content>

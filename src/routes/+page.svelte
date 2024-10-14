@@ -1,9 +1,17 @@
 <script>
-	import { focus, layerOption } from '$lib/store';
+	import {
+		focus,
+		layerOption,
+		gridsQuery,
+		stationsQuery,
+		routesQuery,
+		routesInsightQuery
+	} from '$lib/store';
 	import {
 		getGridsQueryString,
 		getStationsQueryString,
-		getRouteQueryString,
+		getRoutesQueryString,
+		getRoutesInsightQueryString,
 		getData
 	} from '$lib/query';
 	import { Routes, Stations, Grids } from '$lib/components/layers';
@@ -15,11 +23,16 @@
 	let duckdb = getDuckDB();
 
 	$: gridsQueryString = getGridsQueryString();
-	$: gridsPromise = getData($duckdb, gridsQueryString);
+	$: $gridsQuery = getData($duckdb, gridsQueryString);
 	$: stationsQueryString = getStationsQueryString();
-	$: stationsPromise = getData($duckdb, stationsQueryString);
-	$: routesQueryString = getRouteQueryString($focus.id, $layerOption.routes.routeType);
-	$: routesPromise = getData($duckdb, routesQueryString);
+	$: $stationsQuery = getData($duckdb, stationsQueryString);
+	$: routesQueryString = getRoutesQueryString($focus.id, $layerOption.routes.routeType);
+	$: $routesQuery = getData($duckdb, routesQueryString);
+	$: routesInsightQueryString = getRoutesInsightQueryString(
+		$focus.id,
+		$layerOption.routes.routeType
+	);
+	$: $routesInsightQuery = getData($duckdb, routesInsightQueryString);
 </script>
 
 <svelte:head>
@@ -29,19 +42,19 @@
 
 <Mapbox>
 	<DeckGL>
-		{#await gridsPromise}
+		{#await $gridsQuery}
 			<h1>Loading grids...</h1>
 		{:then grids}
 			<Grids data={grids} layerId="h3" />
 		{/await}
 
-		{#await stationsPromise}
+		{#await $stationsQuery}
 			<h1>Loading stations...</h1>
 		{:then stations}
 			<Stations data={stations} layerId="stations" />
 		{/await}
 
-		{#await routesPromise}
+		{#await $routesQuery}
 			<h1>Loading routes...</h1>
 		{:then routes}
 			<Routes data={routes} layerId="routes" />

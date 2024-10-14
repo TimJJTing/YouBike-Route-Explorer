@@ -17,3 +17,20 @@ export const layerOption = writable({
 	stations: { visible: true },
 	routes: { visible: true, routeType: 'all' }
 });
+
+/**
+ * @type {import('svelte/store').Writable<Promise<any[] | undefined>>}
+ */
+export const gridsQuery = writable();
+/**
+ * @type {import('svelte/store').Writable<Promise<any[] | undefined>>}
+ */
+export const stationsQuery = writable();
+/**
+ * @type {import('svelte/store').Writable<Promise<any[] | undefined>>}
+ */
+export const routesQuery = writable();
+/**
+ * @type {import('svelte/store').Writable<Promise<any[] | undefined>>}
+ */
+export const routesInsightQuery = writable();

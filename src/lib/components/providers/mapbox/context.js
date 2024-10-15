@@ -18,3 +18,19 @@ export const setMap = () => {
 export function getMap() {
 	return getContext('map');
 }
+
+export const setDimensions = () => {
+	/**
+	 * @type {import('svelte/store').Writable<{width: number, height: number}>}
+	 */
+	let dimensions = writable({width: 0, height: 0});
+	setContext('dimensions', dimensions);
+	return dimensions;
+};
+
+/**
+ * @returns {import('svelte/store').Writable<{width: number, height: number}>}
+ */
+export const getDimensions = () => {
+	return getContext('dimensions');
+};

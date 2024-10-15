@@ -16,10 +16,3 @@
 >
 	<slot />
 </div>
-
-<style lang="scss">
-	#info {
-		width: 384px;
-		height: 500px;
-	}
-</style>

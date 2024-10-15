@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { ScatterplotLayer } from '@deck.gl/layers';
 	import { focus, hoverId, layerOption } from '$lib/store';
-	import { getMap } from '$lib/components/providers/mapbox';
+	import { getMap, getDimensions } from '$lib/components/providers/mapbox';
 	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 	/**
 	 * @type {any[]|undefined} data
@@ -15,6 +15,7 @@
 	export let layerId = 'stations';
 
 	let map = getMap();
+	let dimensions = getDimensions();
 	let deckgl = getDeckGL();
 	let layers = getLayers();
 
@@ -42,7 +43,12 @@
 				getRadius: (d) => Math.max(d.capacity / 8, hId === d.id ? 8 : 4),
 				getFillColor: (d) => (hId === d.id ? [93, 211, 0, 255] : [93, 211, 0, 80]),
 				onClick: (info, event) => {
-					$map.panTo([info.object.longitude, info.object.latitude]);
+					// TODO: zoom and padding according to screen size
+					$map.flyTo({
+						center: [info.object.longitude, info.object.latitude],
+						zoom: 12,
+						padding: { left: 400 }
+					});
 					focus.set({
 						type: 'station',
 						...info.object

@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { setMap } from './context';
+	import { setMap, setDimensions } from './context';
 	import 'mapbox-gl/dist/mapbox-gl.css';
 
 	/** @type {string} */
@@ -27,6 +27,14 @@
 	// mapboxgl requires a container mounted in the dom already before initialization, so we cannot new a Map in the setMap context
 	let map = setMap();
 
+	let dimensions = setDimensions();
+
+	let innerWidth = 0;
+    let innerHeight = 0;
+
+	$: $dimensions.width = innerWidth;
+	$: $dimensions.height = innerHeight;
+
 	onMount(() => {
 		$map = new mapboxgl.Map({
 			accessToken,
@@ -48,7 +56,7 @@
 		};
 	});
 </script>
-
+<svelte:window bind:innerWidth bind:innerHeight/>
 <div id="container" bind:this={container}>
 	{#if mapReady}
 		<slot />

@@ -3,7 +3,7 @@
 	import { H3HexagonLayer } from '@deck.gl/geo-layers';
 	import { cellToLatLng } from 'h3-js';
 	import { focus, hoverId, layerOption } from '$lib/store';
-	import { getMap } from '$lib/components/providers/mapbox';
+	import { getMap, getDimensions } from '$lib/components/providers/mapbox';
 	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
 	/**
 	 * @type {any[]|undefined} data
@@ -16,6 +16,7 @@
 	export let layerId = 'h3';
 
 	let map = getMap();
+	let dimensions = getDimensions();
 	let deckgl = getDeckGL();
 	let layers = getLayers();
 
@@ -45,8 +46,13 @@
 				getLineWidth: (d) => (hId === d.id ? 5 : 2),
 				onClick: (info, event) => {
 					try {
-						// @ts-ignore return value must be LatLng, we just need to reverse it
-						$map.panTo(cellToLatLng(info.object.id).reverse());
+						// TODO: zoom and padding according to screen size
+						$map.flyTo({
+							// @ts-ignore return value must be LatLng, we just need to reverse it
+							center: cellToLatLng(info.object.id).reverse(),
+							zoom: 12,
+							padding: { left: 400 }
+						});
 					} catch {}
 					focus.set({
 						type: 'grid',

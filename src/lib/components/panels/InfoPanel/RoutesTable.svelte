@@ -1,7 +1,7 @@
 <script>
 	import * as Pagination from '$lib/components/ui/pagination';
 	import * as Table from "$lib/components/ui/table/index.js";
-	import { routesQuery } from '$lib/store';
+	import { hoverId, routesQuery } from '$lib/store';
 	let page = 1;
 	const perPage = 5;
 </script>
@@ -18,7 +18,11 @@
 			</Table.Header>
 			<Table.Body>
 				{#each routes.slice((page - 1) * perPage, page * perPage) as route, i (i)}
-				<Table.Row>
+				<Table.Row
+					tabindex="0"
+					on:mouseenter={()=>hoverId.set(`${route.on_name} → ${route.off_name}`)}
+					on:focus={()=>hoverId.set(`${route.on_name} → ${route.off_name}`)}
+				>
 					<Table.Cell class="text-left">{route.on_name}</Table.Cell>
 					<Table.Cell class="text-left">{route.off_name}</Table.Cell>
 					<Table.Cell class="text-right">{route.sum_of_txn_times}</Table.Cell>

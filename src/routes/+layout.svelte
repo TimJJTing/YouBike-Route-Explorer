@@ -20,7 +20,7 @@
 
 <style>
 	.app {
-		min-height: 100vh;
+		max-height: 100vh;
 	}
 
 	main {

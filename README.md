@@ -58,7 +58,7 @@ You can preview the production build with `npm run preview`.
 - [ ] add more insights, e.g. route distance
 - [ ] add supplementary datasets
 - [ ] deploy demo site
-- [ ] add Dockerfile
+- [ ] test Dockerfile
 
 ## Credits
 

@@ -69,6 +69,7 @@ You can preview the production build with `npm run preview`.
 
 - [Multilevel Agglomerative Edge Bundling in JavaScript](https://github.com/philogb/mingle)
 - [k-d Tree JavaScript Library](https://github.com/ubilabs/kd-tree-javascript)
+- [shadcn-svelte](https://www.shadcn-svelte.com/)
 
 ### Data sources
 

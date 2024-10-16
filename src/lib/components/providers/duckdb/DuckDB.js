@@ -23,8 +23,9 @@ export class DuckDB {
 	 * @param {{name: string, url: string}[]} connections
 	 * @param {duckdb.DuckDBDataProtocol} proto
 	 * @param {boolean} directIO
+	 * @param {duckdb.LogLevel} logLevel
 	 */
-	constructor(connections, proto = 4, directIO = false) {
+	constructor(connections, proto, directIO, logLevel) {
 		/**
 		 * @type {import('@duckdb/duckdb-wasm').AsyncDuckDB | null}
 		 */
@@ -46,13 +47,25 @@ export class DuckDB {
 		this._directIO = directIO;
 
 		/**
-		 * @type {Promise<any> | null}
+		 * @type {duckdb.LogLevel}
 		 */
-		// this.result = null;
+		this._logLevel = logLevel;
 	}
 
 	get connections() {
 		return this._connections;
+	}
+
+	get proto() {
+		return this._proto;
+	}
+
+	get directIO() {
+		return this._directIO;
+	}
+
+	get logLevel() {
+		return this._logLevel;
 	}
 
 	/**
@@ -68,7 +81,7 @@ export class DuckDB {
 		if (bundle.mainWorker) {
 			// Instantiate the asynchronus version of DuckDB-wasm
 			const worker = new Worker(bundle.mainWorker);
-			const logger = new duckdb.ConsoleLogger();
+			const logger = new duckdb.ConsoleLogger(this._logLevel);
 
 			// and asynchronous database
 			this._db = new duckdb.AsyncDuckDB(logger, worker);

@@ -55,10 +55,11 @@ You can preview the production build with `npm run preview`.
 - [x] improve reactivity
 - [x] add UI panels
 - [x] add insight charts
+- [x] deploy demo site
 - [ ] add more insights, e.g. route distance
+- [ ] add filters for insights, e.g. route distance
 - [ ] add supplementary datasets
-- [ ] deploy demo site
-- [ ] test Dockerfile
+- [ ] test adapter-node
 
 ## Credits
 

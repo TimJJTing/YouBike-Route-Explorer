@@ -4,6 +4,10 @@ YouBike, Taiwan's leading public bicycle system, offers 24/7 point-to-point rent
 
 > see also: [YouBikeEDA](https://github.com/TimJJTing/YouBikeEDA) for dataset preparation
 
+## Live Demo
+
+Try [the live demo](https://youbike-route-explorer.netlify.app/)!
+
 ## Developing
 
 1. Under the project root, make sure you're running node 20 or run `nvm use` if you have nvm installed.

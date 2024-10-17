@@ -44,7 +44,34 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Build & Run with Docker
+
+1. Build image
+
+    ```bash
+    docker build --build-arg VITE_MAPBOX_TOKEN={your_mapbox_token} -t="youbike_routes" .
+    ```
+
+    **Available build args**
+
+    - `VITE_MAPBOX_TOKEN`: Mapbox token (required)
+    - `VITE_MAPBOX_MAPSTYLE`: Mapbox map style (default: `mapbox://styles/mapbox/dark-v9`)
+
+2. Run the built image
+
+    ```bash
+    # run container and redirect host port 3000 to container port 3000
+    docker run --name youbike -d -p 3000:3000 youbike_routes
+    ```
+
+3. Visit to play the demo [localhost:3000](localhost:3000)
+4. Stop & remove the image
+
+    ```bash
+    docker stop youbike
+    docker rm youbike
+    docker rmi youbike_routes
+    ```
 
 ## To-do List
 
@@ -60,10 +87,10 @@ You can preview the production build with `npm run preview`.
 - [x] add UI panels
 - [x] add insight charts
 - [x] deploy demo site
-- [ ] add more insights, e.g. route distance
+- [x] add more insights, e.g. route distance
+- [x] test adapter-node
 - [ ] add filters for insights, e.g. route distance
 - [ ] add supplementary datasets
-- [ ] test adapter-node
 
 ## Credits
 

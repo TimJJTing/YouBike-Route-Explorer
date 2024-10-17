@@ -28,7 +28,7 @@ const config = {
 							out: 'build',
 							env: {
 								host: 'HOST',
-								port: 'PORT'
+								port: 3000
 							}
 						})
 					: autoAdapter()

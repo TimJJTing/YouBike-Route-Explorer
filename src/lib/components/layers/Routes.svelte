@@ -33,13 +33,6 @@
 	];
 
 	/**
-	 * return route level [0,...,4]
-	 * @param {{sum_of_txn_times: number, [key: string]: any}} d
-	 */
-	const getRouteLevel = (d) =>
-		Math.min(4, Math.max(0, Math.floor(Math.log2(d.sum_of_txn_times)) - 3));
-
-	/**
 	 * @type {TripsLayer|undefined} data
 	 */
 	let tripsLayer = undefined;
@@ -107,8 +100,8 @@
 				trailLength: 600,
 				getTimestamps: (d) => d.timestamps,
 				getPath: (d) => d.path,
-				getWidth: (d) => (getRouteLevel(d) + 1) * 1.5,
-				getColor: (d) => [...routeColors[getRouteLevel(d)], (getRouteLevel(d) + 1) * 30],
+				getWidth: (d) => (d.level + 1) * 1.5,
+				getColor: (d) => [...routeColors[Math.floor(d.level)], (d.level + 1) * 30],
 				onHover: (info, event) => hoverId.set(info?.object?.name),
 				updateTriggers: {
 					visible: visible
@@ -146,10 +139,10 @@
 				opacity: 1,
 				visible,
 				getPath: (d) => d.path,
-				getWidth: (d) => (getRouteLevel(d) + 1) * 1.5 + (d.name === hId ? 1 : 0),
+				getWidth: (d) => (d.level + 1) * 1.5 + (d.name === hId ? 1 : 0),
 				getColor: (d) => [
-					...routeColors[getRouteLevel(d)],
-					d.name === hId ? 255 : (getRouteLevel(d) + 1) * 30
+					...routeColors[Math.floor(d.level)],
+					d.name === hId ? 255 : (d.level + 1) * 30
 				],
 				onHover: (info, event) => hoverId.set(info?.object?.name),
 				updateTriggers: {

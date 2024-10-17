@@ -1,18 +1,29 @@
-FROM node:20-alpine
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+COPY .npmrc /app
+COPY package*.json /app
+RUN npm ci
+COPY . .
 
 ENV VITE_ADAPTER="node"
-# obviously not the best practice, I keep it here only for demo purposes
 ARG VITE_MAPBOX_TOKEN
 ENV VITE_MAPBOX_TOKEN=${VITE_MAPBOX_TOKEN}
 ARG VITE_MAPBOX_MAPSTYLE
 ENV VITE_MAPBOX_MAPSTYLE=${VITE_MAPBOX_MAPSTYLE}
 
-WORKDIR /code
-COPY .npmrc /code/.npmrc
-COPY package.json /code/package.json
-COPY package-lock.json /code/package-lock.json
-RUN npm ci
-COPY . /code
-
 RUN npm run build
+RUN npm prune --production
+
+FROM node:20-alpine
+
+RUN adduser -D nodeuser
+RUN mkdir -p /app
+RUN chown nodeuser:nodeuser /app
+USER nodeuser
+WORKDIR /app
+COPY --from=builder --chown=nodeuser:nodeuser /app/build build/
+COPY --from=builder --chown=nodeuser:nodeuser /app/node_modules node_modules/
+COPY package.json .
+
 CMD ["node", "build"]

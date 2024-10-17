@@ -1,5 +1,7 @@
 FROM node:20-slim
 
+ENV VITE_ADAPTER="node"
+
 ARG PORT="3000"
 ENV PORT=${PORT}
 

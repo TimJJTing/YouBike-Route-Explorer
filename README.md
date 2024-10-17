@@ -4,6 +4,10 @@ YouBike, Taiwan's leading public bicycle system, offers 24/7 point-to-point rent
 
 > see also: [YouBikeEDA](https://github.com/TimJJTing/YouBikeEDA) for dataset preparation
 
+## Live Demo
+
+Try [the live demo](https://youbike-route-explorer.netlify.app/)!
+
 ## Developing
 
 1. Under the project root, make sure you're running node 20 or run `nvm use` if you have nvm installed.
@@ -40,7 +44,34 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Build & Run with Docker
+
+1. Build image
+
+    ```bash
+    docker build --build-arg VITE_MAPBOX_TOKEN={your_mapbox_token} -t="youbike_routes" .
+    ```
+
+    **Available build args**
+
+    - `VITE_MAPBOX_TOKEN`: Mapbox token (required)
+    - `VITE_MAPBOX_MAPSTYLE`: Mapbox map style (default: `mapbox://styles/mapbox/dark-v9`)
+
+2. Run the built image
+
+    ```bash
+    # run container and redirect host port 3000 to container port 3000
+    docker run --name youbike -d -p 3000:3000 youbike_routes
+    ```
+
+3. Visit to play the demo [localhost:3000](localhost:3000)
+4. Stop & remove the image
+
+    ```bash
+    docker stop youbike
+    docker rm youbike
+    docker rmi youbike_routes
+    ```
 
 ## To-do List
 
@@ -55,15 +86,17 @@ You can preview the production build with `npm run preview`.
 - [x] improve reactivity
 - [x] add UI panels
 - [x] add insight charts
-- [ ] add more insights, e.g. route distance
+- [x] deploy demo site
+- [x] add more insights, e.g. route distance
+- [x] test adapter-node
+- [ ] add filters for insights, e.g. route distance
 - [ ] add supplementary datasets
-- [ ] deploy demo site
-- [ ] test Dockerfile
 
 ## Credits
 
 - [Multilevel Agglomerative Edge Bundling in JavaScript](https://github.com/philogb/mingle)
 - [k-d Tree JavaScript Library](https://github.com/ubilabs/kd-tree-javascript)
+- [shadcn-svelte](https://www.shadcn-svelte.com/)
 
 ### Data sources
 

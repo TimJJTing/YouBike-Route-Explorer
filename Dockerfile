@@ -1,11 +1,9 @@
-FROM node:20-slim
+FROM node:20-alpine
 
-ARG PORT="3000"
-ENV PORT=${PORT}
-
+ENV VITE_ADAPTER="node"
+# obviously not the best practice, I keep it here only for demo purposes
 ARG VITE_MAPBOX_TOKEN
 ENV VITE_MAPBOX_TOKEN=${VITE_MAPBOX_TOKEN}
-
 ARG VITE_MAPBOX_MAPSTYLE
 ENV VITE_MAPBOX_MAPSTYLE=${VITE_MAPBOX_MAPSTYLE}
 

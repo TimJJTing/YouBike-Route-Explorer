@@ -16,7 +16,7 @@
 					<Table.Head class="text-right" title="Route straight-line distance in meters">
 						Dist.(m)
 					</Table.Head>
-					<Table.Head class="text-right" title="Ticketed times">TkT#</Table.Head>
+					<Table.Head class="text-right" title="Ticketed trips">TkT#</Table.Head>
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>

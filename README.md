@@ -1,5 +1,7 @@
 # YouBike Route Explorer: Exploring the Future of Urban Mobility in Taipei
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/439bdf0d-73ba-4581-b49d-b5acb122dd4a/deploy-status)](https://app.netlify.com/sites/youbike-route-explorer/deploys)
+
 YouBike, Taiwan's leading public bicycle system, offers 24/7 point-to-point rental and return services, transforming the way residents and visitors navigate urban spaces. With the introduction of YouBike 2.0, featuring a new design for both bikes and stations, the system no longer relies on external electricity, making it more flexible and easier to deploy across the city. This project, YouBike Route Explorer, delves into the deployment strategy of YouBike 2.0 in Taipei City, empowers you to explore usage patterns, popular routes, and how these trends reflect the evolving needs of urban commuters. By "seeing" the data with this exploratory data visualization tool, we can uncover insights that could drive more efficient, accessible, and sustainable transportation solutions.
 
 > see also: [YouBikeEDA](https://github.com/TimJJTing/YouBikeEDA) for dataset preparation

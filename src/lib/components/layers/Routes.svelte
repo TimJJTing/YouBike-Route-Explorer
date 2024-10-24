@@ -113,7 +113,6 @@
 			if (layerIdx > -1) {
 				$layers = [...$layers];
 				$layers[layerIdx] = tripsLayer;
-				$deckgl.setProps({ layers: $layers });
 			} else {
 				$layers = [...$layers, tripsLayer];
 			}
@@ -157,7 +156,6 @@
 			if (layerIdx > -1) {
 				$layers = [...$layers];
 				$layers[layerIdx] = pathLayer;
-				$deckgl.setProps({ layers: $layers });
 			} else {
 				$layers = [...$layers, pathLayer];
 			}

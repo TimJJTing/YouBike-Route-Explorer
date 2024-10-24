@@ -71,7 +71,6 @@
 			if (layerIdx > -1) {
 				$layers = [...$layers];
 				$layers[layerIdx] = layer;
-				$deckgl.setProps({ layers: $layers });
 			} else {
 				$layers = [...$layers, layer];
 			}

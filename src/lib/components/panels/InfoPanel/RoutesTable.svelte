@@ -1,7 +1,7 @@
 <script>
-	import * as Pagination from '$lib/components/ui/pagination';
-	import * as Table from '$lib/components/ui/table/index.js';
-	import { hoverId, routesQuery } from '$lib/store';
+	import * as Pagination from '#lib/components/ui/pagination/index.js';
+	import * as Table from '#lib/components/ui/table/index.js';
+	import { hoverId, routesQuery } from '#lib/store.js';
 	let page = 1;
 	const perPage = 5;
 </script>
@@ -36,35 +36,30 @@
 				{/each}
 			</Table.Body>
 		</Table.Root>
-		<Pagination.Root
-			count={routes.length}
-			{perPage}
-			bind:page
-			let:pages
-			let:currentPage
-			class="shrink-0 justify-end"
-		>
-			<Pagination.Content>
-				<Pagination.Item>
-					<Pagination.PrevButton />
-				</Pagination.Item>
-				{#each pages as page (page.key)}
-					{#if page.type === 'ellipsis'}
-						<Pagination.Item>
-							<Pagination.Ellipsis />
-						</Pagination.Item>
-					{:else}
-						<Pagination.Item isVisible={currentPage == page.value}>
-							<Pagination.Link {page} isActive={currentPage == page.value}>
-								{page.value}
-							</Pagination.Link>
-						</Pagination.Item>
-					{/if}
-				{/each}
-				<Pagination.Item>
-					<Pagination.NextButton />
-				</Pagination.Item>
-			</Pagination.Content>
+		<Pagination.Root count={routes.length} {perPage} bind:page class="shrink-0 justify-end">
+			{#snippet children({ pages, currentPage })}
+				<Pagination.Content>
+					<Pagination.Item>
+						<Pagination.PrevButton />
+					</Pagination.Item>
+					{#each pages as page (page.key)}
+						{#if page.type === 'ellipsis'}
+							<Pagination.Item>
+								<Pagination.Ellipsis />
+							</Pagination.Item>
+						{:else}
+							<Pagination.Item>
+								<Pagination.Link {page} isActive={currentPage == page.value}>
+									{page.value}
+								</Pagination.Link>
+							</Pagination.Item>
+						{/if}
+					{/each}
+					<Pagination.Item>
+						<Pagination.NextButton />
+					</Pagination.Item>
+				</Pagination.Content>
+			{/snippet}
 		</Pagination.Root>
 	{:else}
 		<span>No routes</span>

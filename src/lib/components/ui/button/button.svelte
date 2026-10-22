@@ -1,21 +1,23 @@
 <script>
-	import { Button as ButtonPrimitive } from "bits-ui";
 	import { buttonVariants } from "./index.js";
-	import { cn } from "$lib/utils.js";
-	let className = undefined;
-	export let variant = "default";
-	export let size = "default";
-	export let builders = [];
-	export { className as class };
+	import { cn } from "#lib/utils.js";
+	/** @type {import("svelte/elements").HTMLButtonAttributes & { variant?: import("./index.js").ButtonVariant; size?: import("./index.js").ButtonSize; ref?: HTMLButtonElement | null }} */
+	let {
+		class: className = undefined,
+		variant = "default",
+		size = "default",
+		ref = $bindable(null),
+		type = "button",
+		children = undefined,
+		...restProps
+	} = $props();
 </script>
 
-<ButtonPrimitive.Root
-	{builders}
-	class={cn(buttonVariants({ variant, size, className }))}
-	type="button"
-	{...$$restProps}
-	on:click
-	on:keydown
+<button
+	bind:this={ref}
+	class={cn(buttonVariants({ variant, size }), className)}
+	{type}
+	{...restProps}
 >
-	<slot />
-</ButtonPrimitive.Root>
+	{@render children?.()}
+</button>

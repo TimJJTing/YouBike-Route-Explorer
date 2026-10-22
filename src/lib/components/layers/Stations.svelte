@@ -1,9 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
 	import { ScatterplotLayer } from '@deck.gl/layers';
-	import { focus, hoverId, layerOption } from '$lib/store';
-	import { getMap, getDimensions } from '$lib/components/providers/mapbox';
-	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
+	import { focus, hoverId, layerOption } from '#lib/store.js';
+	import { getMap, getDimensions } from '#lib/components/providers/mapbox/index.js';
+	import { getDeckGL, getLayers } from '#lib/components/providers/deckgl/index.js';
 	/**
 	 * @type {any[]|undefined} data
 	 */

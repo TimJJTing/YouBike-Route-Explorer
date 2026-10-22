@@ -12,7 +12,7 @@ Try [the live demo](https://youbike-route-explorer.netlify.app/)!
 
 ## Developing
 
-1. Under the project root, make sure you're running node 20 or run `nvm use` if you have nvm installed.
+1. Under the project root, make sure you're running node 26 or run `nvm use` if you have nvm installed.
 2. This project utilizes Mapbox's service and needs a token in `.env` to work:
 
     ```bash

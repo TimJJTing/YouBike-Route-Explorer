@@ -1,14 +1,14 @@
 <script>
-	import Ellipsis from "lucide-svelte/icons/ellipsis";
-	import { cn } from "$lib/utils.js";
-	let className = undefined;
-	export { className as class };
+	import Ellipsis from "@lucide/svelte/icons/ellipsis";
+	import { cn } from "#lib/utils.js";
+	/** @type {import("svelte/elements").HTMLAttributes<HTMLSpanElement>} */
+	let { class: className = undefined, ...restProps } = $props();
 </script>
 
 <span
-	aria-hidden
+	aria-hidden="true"
 	class={cn("flex h-9 w-9 items-center justify-center", className)}
-	{...$$restProps}
+	{...restProps}
 >
 	<Ellipsis class="h-4 w-4" />
 	<span class="sr-only">More pages</span>

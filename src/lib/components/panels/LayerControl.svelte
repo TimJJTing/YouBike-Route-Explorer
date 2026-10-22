@@ -1,8 +1,8 @@
 <script>
-	import * as Card from '$lib/components/ui/card';
-	import { Label } from '$lib/components/ui/label/index.js';
-	import { Switch } from '$lib/components/ui/switch/index.js';
-	import { layerOption } from '$lib/store';
+	import * as Card from '#lib/components/ui/card/index.js';
+	import { Label } from '#lib/components/ui/label/index.js';
+	import { Switch } from '#lib/components/ui/switch/index.js';
+	import { layerOption } from '#lib/store.js';
 </script>
 
 <Card.Root class="absolute right-0 top-0 m-8 bg-zinc-900">

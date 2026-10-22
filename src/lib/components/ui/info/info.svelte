@@ -1,6 +1,6 @@
 <script>
     import { fade } from 'svelte/transition';
-	import { cn } from '$lib/utils.js';
+	import { cn } from '#lib/utils.js';
 	let className = undefined;
 	export { className as class };
 </script>
@@ -8,7 +8,7 @@
 <div
 	id="info"
 	class={cn(
-		'rounded-lg border bg-card bg-zinc-900 text-card-foreground shadow-sm',
+		'rounded-lg border bg-card bg-zinc-900 text-card-foreground shadow-xs',
 		className
 	)}
     transition:fade={{ delay: 250, duration: 300 }}

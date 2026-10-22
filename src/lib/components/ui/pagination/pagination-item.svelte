@@ -1,9 +1,8 @@
 <script>
-	import { cn } from "$lib/utils.js";
-	let className = undefined;
-	export { className as class };
+	/** @type {import("svelte/elements").HTMLLiAttributes} */
+	let { children = undefined, ...restProps } = $props();
 </script>
 
-<li class={cn("", className)} {...$$restProps}>
-	<slot />
+<li {...restProps}>
+	{@render children?.()}
 </li>

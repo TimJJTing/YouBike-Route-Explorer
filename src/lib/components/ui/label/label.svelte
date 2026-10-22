@@ -1,17 +1,15 @@
 <script>
 	import { Label as LabelPrimitive } from "bits-ui";
 	import { cn } from "$lib/utils.js";
-	let className = undefined;
-	export { className as class };
+	/** @type {import("bits-ui").LabelRootProps} */
+	let { class: className = undefined, ref = $bindable(null), ...restProps } = $props();
 </script>
 
 <LabelPrimitive.Root
+	bind:ref
 	class={cn(
 		"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
 		className
 	)}
-	{...$$restProps}
-	on:mousedown
->
-	<slot />
-</LabelPrimitive.Root>
+	{...restProps}
+/>

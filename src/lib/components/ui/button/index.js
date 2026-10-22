@@ -24,6 +24,9 @@ const buttonVariants = tv({
 		size: "default",
 	},
 });
+/** @typedef {keyof typeof buttonVariants.variants.variant} ButtonVariant */
+/** @typedef {keyof typeof buttonVariants.variants.size} ButtonSize */
+
 export {
 	Root,
 	//

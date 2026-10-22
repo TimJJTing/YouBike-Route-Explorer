@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 COPY .npmrc /app
@@ -15,7 +15,7 @@ ENV VITE_MAPBOX_MAPSTYLE=${VITE_MAPBOX_MAPSTYLE}
 RUN npm run build
 RUN npm prune --production
 
-FROM node:20-alpine
+FROM node:22-alpine
 
 RUN adduser -D nodeuser
 RUN mkdir -p /app

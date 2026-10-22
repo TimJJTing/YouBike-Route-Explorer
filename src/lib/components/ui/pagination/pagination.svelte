@@ -9,16 +9,15 @@
 		page = $bindable(1),
 		siblingCount = 1,
 		ref = $bindable(null),
+		children = undefined,
 		...restProps
 	} = $props();
 </script>
 
-<PaginationPrimitive.Root
-	bind:ref
-	bind:page
-	{count}
-	{perPage}
-	{siblingCount}
-	class={cn("mx-auto flex w-full flex-col items-center", className)}
-	{...restProps}
-/>
+<PaginationPrimitive.Root bind:ref bind:page {count} {perPage} {siblingCount} {...restProps}>
+	{#snippet child({ props, ...snippetProps })}
+		<nav {...props} class={cn("mx-auto flex w-full flex-col items-center", className)}>
+			{@render children?.(snippetProps)}
+		</nav>
+	{/snippet}
+</PaginationPrimitive.Root>

@@ -1,7 +1,7 @@
 <script>
-	import * as Info from '$lib/components/ui/info';
-	import * as Tabs from '$lib/components/ui/tabs/index.js';
-	import { focus, layerOption, routesInsightQuery } from '$lib/store';
+	import * as Info from '#lib/components/ui/info/index.js';
+	import * as Tabs from '#lib/components/ui/tabs/index.js';
+	import { focus, layerOption, routesInsightQuery } from '#lib/store.js';
 	import RoutesTable from './RoutesTable.svelte';
 	const tabs = ['all', 'inbound', 'outbound'];
 </script>

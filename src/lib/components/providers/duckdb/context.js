@@ -2,14 +2,14 @@ import { writable } from 'svelte/store';
 import * as duckdb from '@duckdb/duckdb-wasm';
 import { getContext, setContext } from 'svelte';
 import { DuckDB } from './DuckDB';
-import { dev } from '$app/environment';
+import { dev } from '$app/env';
 
 /**
  * @param {{ name: string; url: string; }[]} connections
  * @param { duckdb.DuckDBDataProtocol | undefined } proto
  * @param { boolean | undefined } directIO
  * @param { duckdb.LogLevel | undefined } logLevel
- * @returns {import('svelte/store').Writable<import('$lib/components/providers/duckdb/DuckDB').DuckDB|undefined>}
+ * @returns {import('svelte/store').Writable<import('#lib/components/providers/duckdb/DuckDB.js').DuckDB|undefined>}
  */
 export const setDuckDB = (
 	connections,
@@ -24,7 +24,7 @@ export const setDuckDB = (
 		logLevel = duckdb.LogLevel.ERROR;
 	}
 	/**
-	 * @type {import('svelte/store').Writable<import('$lib/components/providers/duckdb/DuckDB').DuckDB|undefined>}
+	 * @type {import('svelte/store').Writable<import('#lib/components/providers/duckdb/DuckDB.js').DuckDB|undefined>}
 	 */
 	let db = writable(new DuckDB(connections, proto, directIO, logLevel));
 	setContext('duckdb', db);
@@ -32,7 +32,7 @@ export const setDuckDB = (
 };
 
 /**
- * @returns {import('svelte/store').Writable<import('$lib/components/providers/duckdb/DuckDB').DuckDB|undefined>}
+ * @returns {import('svelte/store').Writable<import('#lib/components/providers/duckdb/DuckDB.js').DuckDB|undefined>}
  */
 export function getDuckDB() {
 	return getContext('duckdb');

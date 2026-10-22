@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { getMap } from '$lib/components/providers/mapbox';
+	import { getMap } from '#lib/components/providers/mapbox/index.js';
 	import { setDeckGL, setLayers } from './context';
 
 	/** @type {import('@deck.gl/mapbox').MapboxOverlayProps | undefined} */

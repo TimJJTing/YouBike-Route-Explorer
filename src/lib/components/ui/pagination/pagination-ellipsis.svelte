@@ -1,6 +1,6 @@
 <script>
 	import Ellipsis from "@lucide/svelte/icons/ellipsis";
-	import { cn } from "$lib/utils.js";
+	import { cn } from "#lib/utils.js";
 	/** @type {import("svelte/elements").HTMLAttributes<HTMLSpanElement>} */
 	let { class: className = undefined, ...restProps } = $props();
 </script>

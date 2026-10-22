@@ -1,7 +1,7 @@
 <script>
-	import * as Pagination from '$lib/components/ui/pagination';
-	import * as Table from '$lib/components/ui/table/index.js';
-	import { hoverId, routesQuery } from '$lib/store';
+	import * as Pagination from '#lib/components/ui/pagination/index.js';
+	import * as Table from '#lib/components/ui/table/index.js';
+	import { hoverId, routesQuery } from '#lib/store.js';
 	let page = 1;
 	const perPage = 5;
 </script>

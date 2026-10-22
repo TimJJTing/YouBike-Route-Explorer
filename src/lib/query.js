@@ -34,7 +34,7 @@ export const getRoutesInsightQueryString = (focusId, routeType) => {
 };
 
 /**
- * @param {import('$lib/components/providers/duckdb/DuckDB').DuckDB | undefined} database
+ * @param {import('#lib/components/providers/duckdb/DuckDB.js').DuckDB | undefined} database
  * @param {string} queryString
  */
 export const getData = async (database, queryString) => {

@@ -1,8 +1,8 @@
 <script>
 	import { Pagination as PaginationPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
-	import { buttonVariants } from "$lib/components/ui/button/index.js";
-	/** @type {import("bits-ui").PaginationPageProps & { size?: import("$lib/components/ui/button/index.js").ButtonSize; isActive?: boolean }} */
+	import { cn } from "#lib/utils.js";
+	import { buttonVariants } from "#lib/components/ui/button/index.js";
+	/** @type {import("bits-ui").PaginationPageProps & { size?: import("#lib/components/ui/button/index.js").ButtonSize; isActive?: boolean }} */
 	let {
 		class: className = undefined,
 		page,

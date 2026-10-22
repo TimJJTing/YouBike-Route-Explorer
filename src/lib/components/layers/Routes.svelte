@@ -2,10 +2,10 @@
 	import { onMount } from 'svelte';
 	import { PathLayer } from '@deck.gl/layers';
 	import { TripsLayer } from '@deck.gl/geo-layers';
-	import { hoverId, layerOption } from '$lib/store';
-	import { pathProcessor } from '$lib/pathProcessor';
-	import { getMap } from '$lib/components/providers/mapbox';
-	import { getDeckGL, getLayers } from '$lib/components/providers/deckgl';
+	import { hoverId, layerOption } from '#lib/store.js';
+	import { pathProcessor } from '#lib/pathProcessor.js';
+	import { getMap } from '#lib/components/providers/mapbox/index.js';
+	import { getDeckGL, getLayers } from '#lib/components/providers/deckgl/index.js';
 
 	/**
 	 * @type {any[]|undefined} data

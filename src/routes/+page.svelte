@@ -6,19 +6,19 @@
 		stationsQuery,
 		routesQuery,
 		routesInsightQuery
-	} from '$lib/store';
+	} from '#lib/store.js';
 	import {
 		getGridsQueryString,
 		getStationsQueryString,
 		getRoutesQueryString,
 		getRoutesInsightQueryString,
 		getData
-	} from '$lib/query';
-	import { Routes, Stations, Grids } from '$lib/components/layers';
-	import { Mapbox } from '$lib/components/providers/mapbox';
-	import { DeckGL } from '$lib/components/providers/deckgl';
-	import { LayerControl, InfoPanel } from '$lib/components/panels';
-	import { getDuckDB } from '$lib/components/providers/duckdb';
+	} from '#lib/query.js';
+	import { Routes, Stations, Grids } from '#lib/components/layers/index.js';
+	import { Mapbox } from '#lib/components/providers/mapbox/index.js';
+	import { DeckGL } from '#lib/components/providers/deckgl/index.js';
+	import { LayerControl, InfoPanel } from '#lib/components/panels/index.js';
+	import { getDuckDB } from '#lib/components/providers/duckdb/index.js';
 
 	let duckdb = getDuckDB();
 

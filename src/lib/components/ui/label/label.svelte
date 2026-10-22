@@ -1,6 +1,6 @@
 <script>
 	import { Label as LabelPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+	import { cn } from "#lib/utils.js";
 	/** @type {import("bits-ui").LabelRootProps} */
 	let { class: className = undefined, ref = $bindable(null), ...restProps } = $props();
 </script>

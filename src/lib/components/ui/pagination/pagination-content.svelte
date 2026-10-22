@@ -1,5 +1,5 @@
 <script>
-	import { cn } from "$lib/utils.js";
+	import { cn } from "#lib/utils.js";
 	/** @type {import("svelte/elements").HTMLAttributes<HTMLUListElement>} */
 	let { class: className = undefined, children = undefined, ...restProps } = $props();
 </script>

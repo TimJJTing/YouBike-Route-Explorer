@@ -1,12 +1,12 @@
 <script>
 	import '../app.css';
-	import { base } from '$app/paths';
-	import { DuckDB } from '$lib/components/providers/duckdb';
+	import { asset } from '$app/paths';
+	import { DuckDB } from '#lib/components/providers/duckdb/index.js';
 	/** @type {{name: string, url: string}[]} */
 	let connections = [
-		{ name: 'yb_route_weekday_tpc.parquet', url: `${base}/yb_route_weekday_tpc.parquet` },
-		{ name: 'yb_stations_tpc.parquet', url: `${base}/yb_stations_tpc.parquet` },
-		{ name: 'yb_grids_tpc.parquet', url: `${base}/yb_grids_tpc.parquet` }
+		{ name: 'yb_route_weekday_tpc.parquet', url: asset('yb_route_weekday_tpc.parquet') },
+		{ name: 'yb_stations_tpc.parquet', url: asset('yb_stations_tpc.parquet') },
+		{ name: 'yb_grids_tpc.parquet', url: asset('yb_grids_tpc.parquet') }
 	];
 </script>
 
